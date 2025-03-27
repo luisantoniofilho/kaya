@@ -1,5 +1,11 @@
 import "@/app/styles/globals.css";
+import { Manrope as ManropeFont } from "next/font/google";
 import Header from "./_components/Header";
+
+const manrope = ManropeFont({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata = {
   title: {
@@ -16,9 +22,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${manrope.className} antialiased`}>
         <Header />
-
         {children}
       </body>
     </html>
