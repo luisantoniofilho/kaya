@@ -1,3 +1,5 @@
+import Product from "./_components/Product";
+
 function Page() {
   return (
     <main className="mx-auto max-w-5xl p-6">
@@ -18,39 +20,24 @@ function Page() {
         </h2>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
           {/* Product example */}
-          <div className="rounded-lg border p-4 shadow-sm">
-            <img
-              src="https://via.placeholder.com/150"
-              alt="Produto"
-              className="h-40 w-full rounded-md object-cover"
-            />
-            <h3 className="mt-4 font-medium text-gray-800">Notebook Dell</h3>
-            <p className="text-gray-600">R$ 1.200,00</p>
-          </div>
 
-          <div className="rounded-lg border p-4 shadow-sm">
-            <img
-              src="https://via.placeholder.com/150"
-              alt="Produto"
-              className="h-40 w-full rounded-md object-cover"
-            />
-            <h3 className="mt-4 font-medium text-gray-800">
-              Mesa de Escritório
-            </h3>
-            <p className="text-gray-600">R$ 250,00</p>
-          </div>
+          <Product
+            imgSrc="https://via.placeholder.com/150"
+            price={2400.0}
+            title="Máquina Industrial"
+          />
 
-          <div className="rounded-lg border p-4 shadow-sm">
-            <img
-              src="https://via.placeholder.com/150"
-              alt="Produto"
-              className="h-40 w-full rounded-md object-cover"
-            />
-            <h3 className="mt-4 font-medium text-gray-800">
-              Máquina Industrial
-            </h3>
-            <p className="text-gray-600">Sob Consulta</p>
-          </div>
+          <Product
+            imgSrc="https://via.placeholder.com/150"
+            price={1200.0}
+            title="Notebook Dell"
+          />
+
+          <Product
+            imgSrc="https://via.placeholder.com/150"
+            price={250}
+            title="Mesa de Escritório"
+          />
         </div>
       </section>
 

@@ -4,14 +4,21 @@ import { ReactNode } from "react";
 type HeaderLinkProps = {
   href: string;
   children: ReactNode;
+  classNameOptional?: string;
+  onClick?: () => void;
 };
 
-export default function HeaderLink({ href, children }: HeaderLinkProps) {
+export default function HeaderLink({
+  href,
+  children,
+  classNameOptional,
+  onClick,
+}: HeaderLinkProps) {
   return (
     <Link
-      key={href}
       href={href}
-      className="hover:bg-primary-900 rounded-full px-4 py-2 text-base text-stone-600 transition-all duration-300 hover:text-cyan-300"
+      onClick={onClick}
+      className={`rounded-full px-4 py-2 text-base text-stone-600 transition-all duration-300 hover:bg-stone-600 hover:text-cyan-200 ${classNameOptional}`}
     >
       {children}
     </Link>
