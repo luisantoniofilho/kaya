@@ -1,11 +1,11 @@
-import Product from "./_components/Product";
+import Product from "./products/Product";
 
 function Page() {
   return (
     <main className="mx-auto max-w-5xl p-6">
       {/* Title and introduction */}
       <section className="mb-12 text-center">
-        <h1 className="text-4xl font-bold text-gray-800">Kaya</h1>
+        <h1 className="text-4xl text-stone-800">Kaya</h1>
         <p className="mt-4 text-lg text-gray-600">
           Conectamos pessoas e empresas para dar uma nova vida a produtos que
           ainda têm valor. Venda ou doe itens usados de forma prática e
@@ -20,23 +20,37 @@ function Page() {
         </h2>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
           {/* Product example */}
-
           <Product
-            imgSrc="https://via.placeholder.com/150"
-            price={2400.0}
             title="Máquina Industrial"
+            description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum earum illo modi esse provident culpa, repudiandae, eaque veritatis deleniti magni qui dolores nulla corrupti officiis, ipsa sed fugit facilis dolor."
+            image={{
+              src: "/maquina-industrial.webp",
+              width: 600,
+              height: 450,
+            }}
+            price={2400.0}
           />
 
           <Product
-            imgSrc="https://via.placeholder.com/150"
-            price={1200.0}
             title="Notebook Dell"
+            description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum earum illo modi esse provident culpa, repudiandae, eaque veritatis deleniti magni qui dolores nulla corrupti officiis, ipsa sed fugit facilis dolor."
+            image={{
+              src: "/notebook-dell.png",
+              width: 1000,
+              height: 1000,
+            }}
+            price={1200.0}
           />
 
           <Product
-            imgSrc="https://via.placeholder.com/150"
-            price={250}
             title="Mesa de Escritório"
+            description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum earum illo modi esse provident culpa, repudiandae, eaque veritatis deleniti magni qui dolores nulla corrupti officiis, ipsa sed fugit facilis dolor."
+            image={{
+              src: "/mesa-de-escritorio.jpg",
+              width: 1200,
+              height: 800,
+            }}
+            price={250}
           />
         </div>
       </section>

@@ -1,8 +1,8 @@
 import "@/app/styles/globals.css";
-import { Manrope as ManropeFont } from "next/font/google";
+import { Quicksand } from "next/font/google";
 import Header from "./_components/Header";
 
-const manrope = ManropeFont({
+const quicksand = Quicksand({
   subsets: ["latin"],
   display: "swap",
 });
@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${manrope.className} bg-stone-50 antialiased`}>
+      <body className={`${quicksand.className} antialiased`}>
         <Header />
         {children}
       </body>
