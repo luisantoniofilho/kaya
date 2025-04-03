@@ -1,4 +1,5 @@
 import Input from "../_components/Input";
+import Select from "../_components/Select";
 
 export default function Page() {
   return (
@@ -17,6 +18,25 @@ export default function Page() {
         <Input type="textarea" placeholder="Detalhes sobre o produto">
           Descrição
         </Input>
+
+        <Select
+          label="Categoria"
+          name="category"
+          options={[
+            "Maquina industrial",
+            "Eletrodoméstico",
+            "Utensílios",
+            "Material de obra",
+            "Ferramentas",
+            "Matéria prima",
+            "Mobília",
+            "Papelaria",
+            "Papelaria",
+            "Roupas",
+            "Equipamentos",
+            "Componentes eletrônicos",
+          ]}
+        />
 
         {/* Price input */}
         <Input type="number" placeholder="Ex: 250">

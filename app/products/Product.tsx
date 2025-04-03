@@ -13,7 +13,7 @@ export type ProductProps = {
 
 export default function Product({ title, price, image }: ProductProps) {
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg transition hover:shadow-md">
+    <div className="flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-lg transition hover:shadow-md">
       {/* Product image */}
       <Image
         src={image.src}
@@ -25,10 +25,10 @@ export default function Product({ title, price, image }: ProductProps) {
 
       {/* Card content */}
       <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
-        <p className="mt-1 text-gray-600">R$ {price}</p>
+        <h3 className="text-lg font-semibold text-stone-800">{title}</h3>
+        <p className="mt-1 text-stone-600">R$ {price}</p>
 
-        <button className="mt-4 w-full cursor-pointer rounded-lg bg-blue-600 py-2 text-white transition hover:bg-blue-700">
+        <button className="mt-4 w-full cursor-pointer rounded-lg bg-cyan-700 py-2 text-white transition duration-300 hover:bg-cyan-400 hover:text-stone-700">
           Ver detalhes
         </button>
       </div>

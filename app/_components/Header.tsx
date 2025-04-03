@@ -10,6 +10,7 @@ const links = [
   { href: "/advertise", label: "Anunciar produto" },
   { href: "/about", label: "Sobre nós" },
   { href: "/account", label: "Minha conta" },
+  { href: "/faq", label: "Perguntas frequentes" },
 ];
 
 export default function Header() {
