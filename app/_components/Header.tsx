@@ -1,74 +1,79 @@
 "use client";
-import { useState } from "react";
+
 import Link from "next/link";
-import { Bars4Icon, XMarkIcon } from "@heroicons/react/20/solid";
-import HeaderLink from "./HeaderLink";
+import { useState } from "react";
+import { HeaderLink } from "./HeaderLink";
+import { LoginIcon } from "./LoginIcon";
+import { MobileMenuButton } from "./MobileMenuButton";
 
-// Navigation links
-const links = [
-  { href: "/products", label: "Produtos disponíveis" },
-  { href: "/advertise", label: "Anunciar produto" },
-  { href: "/about", label: "Sobre nós" },
-  { href: "/account", label: "Minha conta" },
-  { href: "/faq", label: "Perguntas frequentes" },
-];
+export function Header() {
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
-export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const handleCloseMenu = () => setMenuIsOpen(false);
 
-  const handleCloseMenu = () => setMenuOpen(false);
+  const links = [
+    { href: "/products", label: "Produtos" },
+    { href: "/advertise", label: "Anunciar" },
+    { href: "/faq", label: "FAQ" },
+    { href: "/about", label: "Sobre nós" },
+  ];
 
   return (
-    <header className="flex items-center justify-between border-b border-cyan-200 bg-cyan-50 px-6 py-4">
+    <header className="flex items-center justify-between bg-cyan-50 px-6 py-4 md:gap-4">
       {/* Logo */}
       <Link
         href="/"
-        className="text-2xl font-black text-stone-600 transition-all duration-300 hover:text-cyan-500"
+        className="text-primary-900 text-2xl transition-all duration-300 hover:text-cyan-500 lg:text-3xl"
       >
         Kaya
       </Link>
 
-      {/* Bigger screens link */}
-      <nav className="hidden items-center gap-4 sm:flex sm:gap-6">
+      {/* Desktop menu */}
+      <nav className="hidden justify-between gap-4 text-center lg:flex">
         {links.map(({ href, label }) => (
-          <HeaderLink
-            key={href}
-            href={href}
-            onClick={menuOpen ? handleCloseMenu : undefined}
-          >
+          <HeaderLink key={href} href={href}>
             {label}
           </HeaderLink>
         ))}
+
+        <LoginIcon onClick={setMenuIsOpen} />
       </nav>
 
-      {/* Mobile menu */}
-      <button
-        className="ml-auto cursor-pointer p-2 text-gray-700 sm:hidden"
-        onClick={() => setMenuOpen(true)}
-      >
-        <Bars4Icon className="size-6 text-stone-600" />
-      </button>
+      {/* Mobile menu button */}
+      <MobileMenuButton menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
 
-      {/* Menu overlay */}
+      {/* Overlay */}
       <div
-        className={`overlay ${menuOpen ? "show" : ""}`}
+        className={`fixed inset-0 z-40 bg-black/40 transition-opacity duration-300 ${
+          menuIsOpen
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
+        }`}
         onClick={handleCloseMenu}
-      ></div>
+      />
 
-      {/* Menu lateral móvel */}
-      <nav className={`mobile-menu ${menuOpen ? "open" : ""}`}>
-        <button className="close-btn" onClick={handleCloseMenu}>
-          <XMarkIcon className="size-6" />
-        </button>
-        <ul className="mt-4 flex flex-col gap-4">
-          {/* Link for home page only on the mobile screens */}
+      {/* Mobile drawer */}
+      <nav
+        className={`fixed top-0 right-0 z-50 h-full w-80 transform bg-green-50 p-6 shadow-lg transition-transform duration-300 ${
+          menuIsOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="mb-2 flex">
+          <LoginIcon onClick={setMenuIsOpen} />
+          <MobileMenuButton
+            menuIsOpen={menuIsOpen}
+            setMenuIsOpen={setMenuIsOpen}
+          />
+        </div>
+
+        <ul className="flex flex-col gap-4">
+          {/* Home link */}
           <li>
             <HeaderLink href="/" onClick={handleCloseMenu}>
-              Início
+              Home page
             </HeaderLink>
           </li>
 
-          {/* Map over the links */}
           {links.map(({ href, label }) => (
             <li key={href}>
               <HeaderLink href={href} onClick={handleCloseMenu}>
@@ -81,3 +86,5 @@ export default function Header() {
     </header>
   );
 }
+
+export default Header;
