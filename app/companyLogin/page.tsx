@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Input from "../_components/Input";
 
-export default function LoginPage() {
+export default function Page() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-gray-100">
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-md">
