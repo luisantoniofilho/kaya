@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Button from "../_components/Button";
 
 export type ProductProps = {
   title: string;
@@ -28,9 +29,7 @@ export default function Product({ title, price, image }: ProductProps) {
         <h3 className="text-lg font-semibold text-stone-800">{title}</h3>
         <p className="mt-1 text-stone-600">R$ {price}</p>
 
-        <button className="mt-4 w-full cursor-pointer rounded-lg bg-cyan-700 py-2 text-white transition duration-300 hover:bg-cyan-400 hover:text-stone-700">
-          Ver detalhes
-        </button>
+        <Button type="button">Ver detalhes</Button>
       </div>
     </div>
   );
