@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 type InputProps = {
   type: string;
   placeholder?: string;
+  name: string;
   optionalClassName?: string;
   children: ReactNode;
 };
@@ -10,6 +11,7 @@ type InputProps = {
 export default function Input({
   type,
   placeholder,
+  name,
   optionalClassName,
   children,
 }: InputProps) {
@@ -21,6 +23,7 @@ export default function Input({
         <textarea
           required
           placeholder={placeholder}
+          name={name}
           className={`w-full rounded-md border border-gray-300 p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none ${optionalClassName}`}
         />
       ) : (
