@@ -14,7 +14,7 @@ export default function Select({ name, label, options }: SelectProps) {
       <label className="block font-medium text-gray-700">{label}</label>
       <select
         name={name}
-        className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:ring focus:ring-green-400"
+        className="mt-1 w-full rounded-lg border border-gray-300 p-2 outline-none focus:ring-2 focus:ring-blue-500"
       >
         <option selected disabled>
           Selecione uma opção
