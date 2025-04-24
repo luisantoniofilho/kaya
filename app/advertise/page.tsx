@@ -10,12 +10,16 @@ export default function Page() {
 
       <form className="space-y-4">
         {/* Title input */}
-        <Input type="text" placeholder="Ex: Mesa de Escritório">
+        <Input type="text" name="title" placeholder="Ex: Mesa de Escritório">
           Título
         </Input>
 
         {/* Description input */}
-        <Input type="textarea" placeholder="Detalhes sobre o produto">
+        <Input
+          type="textarea"
+          name="description"
+          placeholder="Detalhes sobre o produto"
+        >
           Descrição
         </Input>
 
@@ -39,12 +43,12 @@ export default function Page() {
         />
 
         {/* Price input */}
-        <Input type="number" placeholder="Ex: 250">
+        <Input type="number" name="price" placeholder="Ex: 250">
           Preço (R$)
         </Input>
 
         {/* Image input */}
-        <Input type="file" optionalClassName="cursor-pointer">
+        <Input type="file" name="image" optionalClassName="cursor-pointer">
           Imagem
         </Input>
 
