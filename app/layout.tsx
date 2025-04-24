@@ -1,6 +1,7 @@
 import "@/app/styles/globals.css";
 import { Quicksand } from "next/font/google";
 import Header from "./_components/Header";
+import { SessionProvider } from "next-auth/react";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -22,10 +23,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${quicksand.className} antialiased`}>
-        <Header />
-        {children}
-      </body>
+      <SessionProvider>
+        <body className={`${quicksand.className} antialiased`}>
+          <Header />
+          {children}
+        </body>
+      </SessionProvider>
     </html>
   );
 }
