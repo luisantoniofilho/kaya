@@ -1,8 +1,9 @@
 import Image from "next/image";
+import { signOutAction } from "../_lib/actions";
 
 export default function SignoutButton() {
   return (
-    <form>
+    <form action={signOutAction}>
       <button className="flex cursor-pointer items-center justify-center gap-2 rounded-full bg-cyan-600 px-8 py-3 text-lg tracking-widest text-white transition-all hover:bg-cyan-700">
         <Image
           src="https://authjs.dev/img/providers/google.svg"
