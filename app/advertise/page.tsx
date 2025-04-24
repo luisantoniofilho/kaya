@@ -1,3 +1,4 @@
+import Button from "../_components/Button";
 import Input from "../_components/Input";
 import Select from "../_components/Select";
 
@@ -52,12 +53,7 @@ export default function Page() {
           Imagem
         </Input>
 
-        <button
-          type="submit"
-          className="w-full rounded-md bg-blue-600 py-2 font-medium text-white transition hover:bg-blue-700"
-        >
-          Anunciar
-        </button>
+        <Button type="submit">Anunciar produto</Button>
       </form>
     </main>
   );
