@@ -36,7 +36,7 @@ export function Header() {
           </HeaderLink>
         ))}
 
-        <LoginIcon onClick={setMenuIsOpen} />
+        <LoginIcon />
       </nav>
 
       {/* Mobile menu button */}
