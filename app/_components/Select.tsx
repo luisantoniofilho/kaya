@@ -15,8 +15,9 @@ export default function Select({ name, label, options }: SelectProps) {
       <select
         name={name}
         className="mt-1 w-full rounded-lg border border-gray-300 p-2 outline-none focus:ring-2 focus:ring-blue-500"
+        defaultValue=""
       >
-        <option selected disabled>
+        <option disabled value="">
           Selecione uma opção
         </option>
         {options.map((option) => (
