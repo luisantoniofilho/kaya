@@ -7,8 +7,10 @@ export default function Page() {
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-md">
         <h2 className="mb-4 text-2xl font-semibold text-gray-800">Login</h2>
         <form className="space-y-4">
-          <Input type="email">Email</Input>
-          <Input type="password" placeholder="Digite sua senha">
+          <Input name="email" type="email">
+            Email
+          </Input>
+          <Input name="password" type="password" placeholder="Digite sua senha">
             Senha
           </Input>
 
