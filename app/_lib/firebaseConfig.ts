@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDFMGTGD9zrlPWqLlLj6C7ji4spG75bid4",
-  authDomain: "kaya-9c281.firebaseapp.com",
-  projectId: "kaya-9c281",
-  storageBucket: "kaya-9c281.firebasestorage.app",
-  messagingSenderId: "390791983354",
-  appId: "1:390791983354:web:f94239ad107c7fcaa65943",
-  measurementId: "G-Q9J8Q2KPFM",
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
