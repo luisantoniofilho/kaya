@@ -1,6 +1,4 @@
-import Button from "../_components/Button";
-import Input from "../_components/Input";
-import Select from "../_components/Select";
+import AdvertiseProductForm from "../_components/AdvertiseProductForm";
 
 export default function Page() {
   return (
@@ -9,52 +7,7 @@ export default function Page() {
         Anunciar Produto
       </h1>
 
-      <form className="space-y-4">
-        {/* Title input */}
-        <Input type="text" name="title" placeholder="Ex: Mesa de Escritório">
-          Título
-        </Input>
-
-        {/* Description input */}
-        <Input
-          type="textarea"
-          name="description"
-          placeholder="Detalhes sobre o produto"
-        >
-          Descrição
-        </Input>
-
-        <Select
-          label="Categoria"
-          name="category"
-          options={[
-            "Maquina industrial",
-            "Eletrodoméstico",
-            "Utensílios",
-            "Material de obra",
-            "Ferramentas",
-            "Matéria prima",
-            "Mobília",
-            "Papelaria",
-            "Papelaria",
-            "Roupas",
-            "Equipamentos",
-            "Componentes eletrônicos",
-          ]}
-        />
-
-        {/* Price input */}
-        <Input type="number" name="price" placeholder="Ex: 250">
-          Preço (R$)
-        </Input>
-
-        {/* Image input */}
-        <Input type="file" name="image" optionalClassName="cursor-pointer">
-          Imagem
-        </Input>
-
-        <Button type="submit">Anunciar produto</Button>
-      </form>
+      <AdvertiseProductForm />
     </main>
   );
 }
