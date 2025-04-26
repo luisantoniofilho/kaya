@@ -11,7 +11,6 @@ export function LoginIcon({
 }) {
   const { data: session, status } = useSession();
 
-  console.log(session);
   return (
     <HeaderLink href="/userLogin">
       {status === "loading" ? (
