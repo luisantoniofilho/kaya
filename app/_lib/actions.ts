@@ -2,6 +2,7 @@
 
 import { signIn, signOut } from "../auth";
 import { productSchema } from "../schemas/productSchema";
+import { addProduct } from "./firebaseActions";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/products" });
@@ -29,5 +30,5 @@ export async function addProductAction(formData: FormData) {
   }
 
   console.log(imageFile);
-  // await addProduct(productParsed.data);
+  await addProduct(productParsed.data);
 }
