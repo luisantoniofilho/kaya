@@ -1,4 +1,4 @@
-import Product from "./products/Product";
+import Top3Products from "./_components/Top3Products";
 
 function Page() {
   return (
@@ -18,41 +18,7 @@ function Page() {
         <h2 className="mb-6 text-2xl font-semibold text-gray-700">
           Produtos em Destaque
         </h2>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-          {/* Product example */}
-          <Product
-            title="Máquina Industrial"
-            description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum earum illo modi esse provident culpa, repudiandae, eaque veritatis deleniti magni qui dolores nulla corrupti officiis, ipsa sed fugit facilis dolor."
-            image={{
-              src: "/maquina-industrial.webp",
-              width: 600,
-              height: 450,
-            }}
-            price={2400.0}
-          />
-
-          <Product
-            title="Notebook Dell"
-            description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum earum illo modi esse provident culpa, repudiandae, eaque veritatis deleniti magni qui dolores nulla corrupti officiis, ipsa sed fugit facilis dolor."
-            image={{
-              src: "/notebook-dell.png",
-              width: 1000,
-              height: 1000,
-            }}
-            price={1200.0}
-          />
-
-          <Product
-            title="Mesa de Escritório"
-            description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum earum illo modi esse provident culpa, repudiandae, eaque veritatis deleniti magni qui dolores nulla corrupti officiis, ipsa sed fugit facilis dolor."
-            image={{
-              src: "/mesa-de-escritorio.jpg",
-              width: 1200,
-              height: 800,
-            }}
-            price={250}
-          />
-        </div>
+        <Top3Products />
       </section>
 
       <section>
