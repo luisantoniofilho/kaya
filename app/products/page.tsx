@@ -1,7 +1,10 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import Product from "./Product";
+import { getProducts } from "../_lib/firebaseActions";
+import Product from "../_components/Product";
 
-export default function Page() {
+export default async function Page() {
+  const products = await getProducts();
+
   return (
     <main className="mx-auto max-w-6xl p-6">
       {/* Título da Página */}
@@ -19,38 +22,15 @@ export default function Page() {
 
       {/* Grid de Produtos */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <Product
-          title="Máquina Industrial"
-          description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum earum illo modi esse provident culpa, repudiandae, eaque veritatis deleniti magni qui dolores nulla corrupti officiis, ipsa sed fugit facilis dolor."
-          image={{
-            src: "/maquina-industrial.webp",
-            width: 600,
-            height: 450,
-          }}
-          price={2400.0}
-        />
-
-        <Product
-          title="Notebook Dell"
-          description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum earum illo modi esse provident culpa, repudiandae, eaque veritatis deleniti magni qui dolores nulla corrupti officiis, ipsa sed fugit facilis dolor."
-          image={{
-            src: "/notebook-dell.png",
-            width: 1000,
-            height: 1000,
-          }}
-          price={1200.0}
-        />
-
-        <Product
-          title="Mesa de Escritório"
-          description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum earum illo modi esse provident culpa, repudiandae, eaque veritatis deleniti magni qui dolores nulla corrupti officiis, ipsa sed fugit facilis dolor."
-          image={{
-            src: "/mesa-de-escritorio.jpg",
-            width: 1200,
-            height: 800,
-          }}
-          price={250}
-        />
+        {products.map((product, index) => (
+          <Product
+            key={index}
+            description={product.description}
+            category={product.category}
+            price={product.price}
+            title={product.title}
+          />
+        ))}
       </div>
     </main>
   );
