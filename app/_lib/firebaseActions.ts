@@ -1,6 +1,6 @@
-import { collection, doc, getDocs, query, setDoc } from "firebase/firestore";
-import { db } from "./firebaseConfig";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { ProductType } from "../schemas/productSchema";
+import { db } from "./firebaseConfig";
 
 export async function addProduct(product: ProductType) {
   await setDoc(doc(db, "products", product.title), {
@@ -9,8 +9,7 @@ export async function addProduct(product: ProductType) {
 }
 
 export async function getProducts() {
-  const q = query(collection(db, "products"));
-
-  const querySnapshot = await getDocs(q);
-  return querySnapshot;
+  const querySnapshot = await getDocs(collection(db, "products"));
+  const products = querySnapshot.docs.map((product) => product.data());
+  return products;
 }
