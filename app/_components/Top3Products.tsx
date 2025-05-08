@@ -1,4 +1,4 @@
-import { getProducts } from "../_lib/firebaseActions";
+import { getProducts } from "../_lib/mongodb/mongodbActions";
 import Product from "./Product";
 
 export default async function Top3Products() {
