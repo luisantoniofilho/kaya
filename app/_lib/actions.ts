@@ -1,8 +1,9 @@
 "use server";
 
-import { signIn, signOut } from "../auth";
 import { productSchema } from "../schemas/productSchema";
-import { addProduct } from "./firebaseActions";
+import { signIn, signOut } from "./auth";
+import { uploadImage } from "./blobActions";
+import { addProduct } from "./mongodb/mongodbActions";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/products" });
@@ -13,22 +14,28 @@ export async function signOutAction() {
 }
 
 export async function addProductAction(formData: FormData) {
+  // Remove intern fields
   const formDataEntries = Array.from(formData.entries()).filter(
     ([key]) => !key.startsWith("$ACTION_"),
   );
-  // Remove intern fields
 
+  // Split the image file and the other product details
   const { image: imageFile, ...rawProduct } =
     Object.fromEntries(formDataEntries);
 
   // Parse the object into the schema
-  const productParsed = productSchema.safeParse(rawProduct);
+  const result = productSchema.safeParse(rawProduct);
 
-  if (!productParsed.success) {
-    console.error(productParsed.error.flatten());
-    return { error: productParsed.error.flatten() };
+  if (!result.success) {
+    console.error(result.error.flatten());
+    return { error: result.error.flatten() };
   }
 
-  console.log(imageFile);
-  await addProduct(productParsed.data);
+  const productParsed = result.data;
+
+  const blobImage = await uploadImage(imageFile as File);
+  const imagePath = blobImage.url;
+
+  console.log(imagePath);
+  await addProduct(productParsed);
 }
