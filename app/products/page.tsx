@@ -1,9 +1,12 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import { getProducts } from "../_lib/firebaseActions";
 import Product from "../_components/Product";
+import { getProducts } from "../_lib/mongodb/mongodbActions";
 
 export default async function Page() {
   const products = await getProducts();
+
+  if (products) console.log(products);
+  else console.log("No products");
 
   return (
     <main className="mx-auto max-w-6xl p-6">
