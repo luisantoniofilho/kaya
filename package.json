@@ -9,9 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/mongodb-adapter": "^3.9.0",
     "@heroicons/react": "^2.2.0",
     "@vercel/blob": "^1.0.0",
-    "firebase": "^11.6.1",
+    "mongodb": "^6.16.0",
     "next": "15.2.4",
     "next-auth": "^5.0.0-beta.26",
     "react": "^19.0.0",
@@ -27,6 +28,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
+    "generate-env-example": "^1.1.0",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4",
