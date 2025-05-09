@@ -9,10 +9,10 @@ export default async function Page() {
 
   return (
     <main className="mx-auto max-w-6xl p-6">
-      {/* Título da Página */}
+      {/* Page title */}
       <h1 className="mb-6 text-4xl font-bold text-gray-800">Produtos</h1>
 
-      {/* Barra de Pesquisa */}
+      {/* Search bar */}
       <div className="relative mb-6 w-full max-w-lg">
         <input
           type="text"
@@ -22,7 +22,7 @@ export default async function Page() {
         <MagnifyingGlassIcon className="absolute top-2.5 right-3 h-5 w-5 cursor-pointer text-gray-400" />
       </div>
 
-      {/* Grid de Produtos */}
+      {/* Products grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {products &&
           products.map((product, index) => (
@@ -32,6 +32,7 @@ export default async function Page() {
               category={product.category}
               price={product.price}
               title={product.title}
+              imagePath={product.imagePath}
             />
           ))}
       </div>
