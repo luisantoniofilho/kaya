@@ -19,7 +19,7 @@ export default function AdvertiseProductForm() {
       if (result?.error) {
         Object.entries(result.error.fieldErrors).forEach(([key, value]) => {
           console.error(`${key}: ${value}`);
-          toast.error(value.toString());
+          toast.error(`${key.toString()}: ${value.toString()}`);
         });
       }
     });
