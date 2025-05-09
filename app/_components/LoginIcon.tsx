@@ -12,7 +12,7 @@ export function LoginIcon({
   const { data: session, status } = useSession();
 
   return (
-    <HeaderLink href="/userLogin">
+    <HeaderLink href="/login">
       {status === "loading" ? (
         // Loading
         <SpinnerMini />
