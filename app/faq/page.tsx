@@ -1,15 +1,33 @@
 const faqs = [
-  //   {
-  //     question: "Quais são as formas de pagamento aceitas?",
-  //     answer: "Aceitamos cartões de crédito, boleto bancário e Pix.",
-  //   },
   {
-    question: "",
-    answer: "",
+    question: "Preciso criar uma conta para anunciar um produto?",
+    answer:
+      "Sim, é necessário entrar com sua conta Google para anunciar um produto no site.",
   },
   {
     question: "Qual é a política de devolução?",
-    answer: "Você pode devolver um produto em até 30 dias após o recebimento.",
+    answer:
+      "A política de devolução depende de cada vendedor. Recomendamos combinar diretamente com o responsável pelo produto.",
+  },
+  {
+    question: "Como faço para comprar um produto?",
+    answer:
+      "Cada produto possui uma forma de contato específica. Basta usar esse canal para conversar diretamente com o vendedor e finalizar a compra.",
+  },
+  {
+    question: "Meus dados estão seguros?",
+    answer:
+      "Sim. Armazenamos apenas seu nome e e-mail com segurança e usamos a autenticação do Google para proteger seu acesso.",
+  },
+  {
+    question: "Vocês intermediam os pagamentos?",
+    answer:
+      "Não. As compras são feitas diretamente com o vendedor, fora da plataforma.",
+  },
+  {
+    question: "Quem pode anunciar produtos?",
+    answer:
+      "Apenas usuários autorizados e cadastrados podem adicionar novos produtos.",
   },
 ];
 
