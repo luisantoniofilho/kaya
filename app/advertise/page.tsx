@@ -4,7 +4,6 @@ import { auth } from "../_lib/auth";
 
 export default async function Page() {
   const session = await auth();
-  console.log(session);
   if (!session) redirect("/login");
 
   return (
