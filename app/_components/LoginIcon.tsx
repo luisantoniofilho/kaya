@@ -1,3 +1,5 @@
+"use client";
+
 import { Dispatch, SetStateAction } from "react";
 import { HeaderLink } from "./HeaderLink";
 import { useSession } from "next-auth/react";
