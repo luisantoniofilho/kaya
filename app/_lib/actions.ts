@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { productSchema } from "../schemas/productSchema";
 import { signIn, signOut } from "./auth";
 import { uploadImage } from "./blobActions";
@@ -23,6 +24,12 @@ export async function addProductAction(formData: FormData) {
   const { image: imageFile, ...rawProduct } =
     Object.fromEntries(formDataEntries);
 
+  // Take the image url from vercel blob
+  const { url: imagePath } = await uploadImage(imageFile as File);
+
+  // Add the imagePath to the raw product
+  rawProduct.imagePath = imagePath;
+
   // Parse the object into the schema
   const result = productSchema.safeParse(rawProduct);
 
@@ -33,9 +40,7 @@ export async function addProductAction(formData: FormData) {
 
   const productParsed = result.data;
 
-  const blobImage = await uploadImage(imageFile as File);
-  const imagePath = blobImage.url;
-
-  console.log(imagePath);
   await addProduct(productParsed);
+
+  redirect("/products");
 }
