@@ -1,22 +1,24 @@
 import Button from "./Button";
 import { ProductType } from "../schemas/productSchema";
+import Image from "next/image";
 
 export default function Product({
   title,
   description,
   price,
   category,
+  imagePath,
 }: ProductType) {
   return (
     <div className="flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-lg transition hover:shadow-md">
       {/* Product image */}
-      {/* <Image
-        src={image.src}
+      <Image
+        src={imagePath}
         alt={title}
-        height={image.height}
-        width={image.width}
+        height={500}
+        width={500}
         className="h-48 w-full object-cover"
-      /> */}
+      />
 
       {/* Card content */}
       <div className="p-4">
