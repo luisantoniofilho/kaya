@@ -9,8 +9,6 @@ export const metadata = {
 export default async function Page() {
   const session = await auth();
 
-  console.log(session?.user);
-
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
       <div className="flex w-full max-w-md flex-col items-center rounded-2xl bg-white p-8 shadow-lg sm:max-w-lg md:max-w-xl md:p-12">

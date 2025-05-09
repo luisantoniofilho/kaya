@@ -5,8 +5,7 @@ import { getProducts } from "../_lib/mongodb/mongodbActions";
 export default async function Page() {
   const products = await getProducts();
 
-  if (products) console.log(products);
-  else console.log("No products");
+  if (!products) console.log("No products");
 
   return (
     <main className="mx-auto max-w-6xl p-6">
@@ -25,15 +24,16 @@ export default async function Page() {
 
       {/* Grid de Produtos */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {products.map((product, index) => (
-          <Product
-            key={index}
-            description={product.description}
-            category={product.category}
-            price={product.price}
-            title={product.title}
-          />
-        ))}
+        {products &&
+          products.map((product, index) => (
+            <Product
+              key={index}
+              description={product.description}
+              category={product.category}
+              price={product.price}
+              title={product.title}
+            />
+          ))}
       </div>
     </main>
   );
