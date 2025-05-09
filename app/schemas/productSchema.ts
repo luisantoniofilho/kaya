@@ -12,6 +12,7 @@ export const productSchema = z.object({
       invalid_type_error: "Digite um número válido",
     })
     .positive("O preço não pode ser negativo"),
+  imagePath: z.string(),
 });
 
 export type ProductType = z.infer<typeof productSchema>;
