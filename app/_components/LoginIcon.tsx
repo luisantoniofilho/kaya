@@ -1,35 +1,21 @@
-"use client";
-
-import { Dispatch, SetStateAction } from "react";
-import { HeaderLink } from "./HeaderLink";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
-import SpinnerMini from "./SpinnerMini";
+import { auth } from "../_lib/auth";
+import { HeaderLink } from "./HeaderLink";
 
-export function LoginIcon({
-  onClick,
-}: {
-  onClick?: Dispatch<SetStateAction<boolean>>;
-}) {
-  const { data: session, status } = useSession();
+export async function LoginIcon() {
+  const session = await auth();
 
-  return (
-    <HeaderLink href="/login">
-      {status === "loading" ? (
-        // Loading
-        <SpinnerMini />
-      ) : session ? (
+  if (session)
+    return (
+      <HeaderLink href={"/account"}>
         <Image
           className="rounded-full"
           src={session.user?.image ?? "/default-avatar.png"}
           alt="User"
           width={25}
           height={25}
-          onClick={() => onClick?.((prev) => !prev)}
         />
-      ) : (
-        "Login"
-      )}
-    </HeaderLink>
-  );
+      </HeaderLink>
+    );
+  return <HeaderLink href={"/login"}>Login</HeaderLink>;
 }
