@@ -1,13 +1,13 @@
 import Image from "next/image";
 import { auth } from "../_lib/auth";
-import { HeaderLink } from "./HeaderLink";
+import { DesktopLink } from "./DesktopLink";
 
 export async function LoginIcon() {
   const session = await auth();
 
   if (session)
     return (
-      <HeaderLink href={"/account"}>
+      <DesktopLink href={"/account"}>
         <Image
           className="rounded-full"
           src={session.user?.image ?? "/default-avatar.png"}
@@ -15,7 +15,7 @@ export async function LoginIcon() {
           width={25}
           height={25}
         />
-      </HeaderLink>
+      </DesktopLink>
     );
-  return <HeaderLink href={"/login"}>Login</HeaderLink>;
+  return <DesktopLink href={"/login"}>Login</DesktopLink>;
 }
