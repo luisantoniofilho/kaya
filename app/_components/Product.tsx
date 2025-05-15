@@ -1,8 +1,9 @@
-import Button from "./Button";
-import { ProductType } from "../schemas/productSchema";
 import Image from "next/image";
+import { ProductType } from "../schemas/productSchema";
+import LinkButton from "./LinkButton";
 
 export default function Product({
+  id,
   title,
   description,
   price,
@@ -27,7 +28,7 @@ export default function Product({
         <p className="mt-1 text-stone-600">{category}</p>
         <p className="mt-1 text-stone-600">{description}</p>
 
-        <Button type="button">Ver detalhes</Button>
+        <LinkButton href={`/products/${id}`}>Ver detalhes</LinkButton>
       </div>
     </div>
   );
