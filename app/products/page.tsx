@@ -1,9 +1,15 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Product from "../_components/Product";
-import { getProducts } from "../_lib/mongodb/mongodbActions";
+import { getProductsAction } from "../_lib/actions";
 
 export default async function Page() {
-  const products = await getProducts();
+  const products = await getProductsAction();
+
+  if (!Array.isArray(products)) {
+    // If there is an error
+    console.error(products);
+    return;
+  }
 
   if (!products) console.log("No products");
 
@@ -28,6 +34,7 @@ export default async function Page() {
           products.map((product, index) => (
             <Product
               key={index}
+              id={product.id}
               description={product.description}
               category={product.category}
               price={product.price}
