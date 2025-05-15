@@ -23,10 +23,7 @@ export async function getUser(userEmail: string) {
 
 export async function addProduct(product: ProductType) {
   // Insert the new product on the products collection
-  const result = await productsCollection.insertOne(product);
-  console.log(
-    `A document was inserted with the _id: ${result} ${result.insertedId}`,
-  );
+  await productsCollection.insertOne(product);
 }
 
 export async function getProducts() {
