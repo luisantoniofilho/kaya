@@ -44,3 +44,12 @@ export async function addProductAction(formData: FormData) {
 
   redirect("/products");
 }
+
+export default async function getProductAction(productId: string) {
+  // Transform the productId into a MongoDB ObjectId
+  const objectId = ObjectId.createFromHexString(productId);
+
+  const product = await getProduct(objectId);
+  return product;
+}
+
