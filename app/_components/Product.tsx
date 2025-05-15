@@ -8,13 +8,15 @@ export default function Product({
   description,
   price,
   category,
-  imagePath,
+  imageUrl,
 }: ProductType) {
+  if (!imageUrl) throw new Error("Imagem sem URL");
+
   return (
     <div className="flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-lg transition hover:shadow-md">
       {/* Product image */}
       <Image
-        src={imagePath}
+        src={imageUrl}
         alt={title}
         height={500}
         width={500}
