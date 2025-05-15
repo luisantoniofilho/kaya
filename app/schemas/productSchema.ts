@@ -1,6 +1,12 @@
 import { z } from "zod";
 import { PRODUCT_CATEGORIES } from "../constants/productCategories";
 
+/* The vercel blob limit is 4.5mb
+1 MB = 1024 * 1024 bytes = 1_048_576 bytes
+4.5 MB = 4.5 * 1_048_576 = 4_718_592 bytes
+*/
+const MAX_FILE_SIZE = 4_718_592;
+
 export const productSchema = z.object({
   id: z.string().optional(),
   title: z.string().min(3, "Título muito curto"),
@@ -13,7 +19,26 @@ export const productSchema = z.object({
       invalid_type_error: "Digite um número válido",
     })
     .positive("O preço não pode ser negativo"),
-  imagePath: z.string(),
+  image: z
+    .instanceof(File)
+    .refine(
+      (file) => {
+        const imageTypes = [
+          "image/png",
+          "image/jpg",
+          "image/jpeg",
+          "image/webp",
+        ];
+        return imageTypes.includes(file.type);
+      },
+      { message: "Escolha uma imagem válida" },
+    )
+    .refine((file) => file.size <= MAX_FILE_SIZE, {
+      message:
+        "O tamanho da imagem está muito grande, escolha uma imagem menor",
+    })
+    .optional(),
+  imageUrl: z.string().optional(),
 });
 
 export type ProductType = z.infer<typeof productSchema>;
