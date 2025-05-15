@@ -22,15 +22,8 @@ export async function addProductAction(formData: FormData) {
     ([key]) => !key.startsWith("$ACTION_"),
   );
 
-  // Split the image file and the other product details
-  const { image: imageFile, ...rawProduct } =
-    Object.fromEntries(formDataEntries);
-
-  // Take the image url from vercel blob
-  const { url: imagePath } = await uploadImage(imageFile as File);
-
-  // Add the imagePath to the raw product
-  rawProduct.imagePath = imagePath;
+  // Take the product
+  const { ...rawProduct } = Object.fromEntries(formDataEntries);
 
   // Parse the object into the schema
   const result = productSchema.safeParse(rawProduct);
@@ -40,7 +33,17 @@ export async function addProductAction(formData: FormData) {
     return { error: result.error.flatten() };
   }
 
+  // Take the product parsed
   const productParsed = result.data;
+
+  // Upload the image and take the url from vercel blob
+  const { url: imageUrl } = await uploadImage(productParsed.image as File);
+
+  // Remove the image file
+  delete productParsed.image;
+
+  // Add the image URL in blob store
+  productParsed.imageUrl = imageUrl;
 
   await addProduct(productParsed);
 
