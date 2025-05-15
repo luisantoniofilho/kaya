@@ -39,7 +39,7 @@ export default async function Page() {
               category={product.category}
               price={product.price}
               title={product.title}
-              imagePath={product.imagePath}
+              imageUrl={product.imageUrl}
             />
           ))}
       </div>

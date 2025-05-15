@@ -20,7 +20,7 @@ export default async function Top3Products() {
           category={product.category}
           price={product.price}
           title={product.title}
-          imagePath={product.imagePath}
+          imageUrl={product.imageUrl}
         />
       ))}
     </div>
