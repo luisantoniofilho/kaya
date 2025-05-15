@@ -53,7 +53,12 @@ export default function AdvertiseProductForm() {
       </Input>
 
       {/* Image input */}
-      <Input type="file" name="image" optionalClassName="cursor-pointer">
+      <Input
+        type="file"
+        accept=".png, .jpg, .jpeg, .webp"
+        name="image"
+        optionalClassName="cursor-pointer"
+      >
         Imagem
       </Input>
 
