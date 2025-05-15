@@ -1,10 +1,12 @@
 "use server";
 
+import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
-import { productSchema } from "../schemas/productSchema";
+import { z } from "zod";
+import { productSchema, ProductType } from "../schemas/productSchema";
 import { signIn, signOut } from "./auth";
 import { uploadImage } from "./blobActions";
-import { addProduct } from "./mongodb/mongodbActions";
+import { addProduct, getProduct, getProducts } from "./mongodb/mongodbActions";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/products" });
@@ -53,3 +55,27 @@ export default async function getProductAction(productId: string) {
   return product;
 }
 
+export async function getProductsAction(): Promise<
+  | ProductType[]
+  | { error: z.inferFlattenedErrors<z.ZodArray<typeof productSchema>> }
+> {
+  const products = await getProducts();
+
+  // Return the products with the id transformed from MongoDB ObjectID to HexString
+  const productsWithStringId = products.map(({ _id, ...otherProperties }) => ({
+    id: _id.toString(),
+    ...otherProperties,
+  }));
+
+  // Parse the object array into the schema
+  const result = z.array(productSchema).safeParse(productsWithStringId);
+
+  if (!result.success) {
+    console.error(result.error.flatten());
+    return { error: result.error.flatten() };
+  }
+
+  const productsParsed = result.data;
+
+  return productsParsed;
+}
