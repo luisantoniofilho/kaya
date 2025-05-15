@@ -5,6 +5,7 @@ type InputProps = {
   placeholder?: string;
   name: string;
   optionalClassName?: string;
+  accept?: string;
   children: ReactNode;
 };
 
@@ -13,6 +14,7 @@ export default function Input({
   placeholder,
   name,
   optionalClassName,
+  accept,
   children,
 }: InputProps) {
   return (
@@ -32,6 +34,7 @@ export default function Input({
           type={type}
           placeholder={placeholder}
           name={name}
+          accept={accept}
           className={`w-full rounded-md border border-gray-300 p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none ${optionalClassName}`}
         />
       )}
