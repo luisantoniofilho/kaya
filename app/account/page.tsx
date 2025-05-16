@@ -1,6 +1,12 @@
 import Link from "next/link";
+import { auth } from "../_lib/auth";
+import { redirect } from "next/navigation";
 
-export default function Page() {
+export default async function Page() {
+  const session = await auth();
+
+  if (!session) redirect("/login");
+
   return (
     <div className="mx-auto max-w-lg p-6">
       <h1 className="mb-4 text-2xl font-bold">Minha Conta</h1>
