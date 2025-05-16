@@ -1,14 +1,12 @@
 # 🛒 E-Commerce Platform
 
-A modern e-commerce platform with dual authentication for consumers (CPF) and businesses (CNPJ), built with Next.js and Firebase.
+A modern e-commerce platform with dual authentication for consumers (CPF) and businesses (CNPJ), built with Next.js and MongoDB.
 
 ## TODO
 
 Here are the next improvements planned for the application:
 
-🔁 Add product image upload functionality with Vercel Blob  
-🔁 Implement order tracking system  
-✅ Completed authentication system for CPF/CNPJ users
+🔁 Completed authentication system for CNPJ users
 
 ## Tech Stack
 
@@ -20,8 +18,8 @@ Here are the next improvements planned for the application:
 
 - **Backend**:
 
-  - Firebase (Firestore, Auth)
-  - NextAuth.js
+  - MongoDB (with mongodb driver)
+  - NextAuth.js (with MongoDB adapter)
 
 - **Validation**:
   - Zod
@@ -29,6 +27,23 @@ Here are the next improvements planned for the application:
 ## Getting Started
 
 1. Clone the repository:
+
    ```bash
-   git clone https://github.com/your-username/ecommerce-platform.git
+   git clone https://github.com/luisantoniofilho/kaya.git
    ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Create a .env.local file with your environment variables (MongoDB connection string, NextAuth secrets, etc).
+
+4. Run the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Open http://localhost:3000 in your browser.
