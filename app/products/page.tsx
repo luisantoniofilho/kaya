@@ -1,18 +1,9 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import Product from "../_components/Product";
-import { getProductsAction } from "../_lib/actions";
+import ProductList from "../_components/ProductList";
+
+export const revalidate = 60;
 
 export default async function Page() {
-  const products = await getProductsAction();
-
-  if (!Array.isArray(products)) {
-    // If there is an error
-    console.error(products);
-    return;
-  }
-
-  if (!products) console.log("No products");
-
   return (
     <main className="mx-auto max-w-6xl p-6">
       {/* Page title */}
@@ -30,18 +21,7 @@ export default async function Page() {
 
       {/* Products grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {products &&
-          products.map((product, index) => (
-            <Product
-              key={index}
-              id={product.id}
-              description={product.description}
-              category={product.category}
-              price={product.price}
-              title={product.title}
-              imageUrl={product.imageUrl}
-            />
-          ))}
+        <ProductList />
       </div>
     </main>
   );
