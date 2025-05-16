@@ -31,7 +31,7 @@ export default async function Page({
       <div className="flex flex-col gap-8 md:flex-row">
         <div className="flex-1">
           <Image
-            src={product.imagePath}
+            src={product.imageUrl}
             alt={product.title}
             height={1000}
             width={1000}
