@@ -5,9 +5,7 @@ export const revalidate = 60;
 
 export async function generateStaticParams() {
   const products = await getProductsAction();
-
   if (!Array.isArray(products)) return [];
-
   return products.map((product) => ({
     productId: product.id?.toString(),
   }));
@@ -18,46 +16,55 @@ export default async function Page({
 }: {
   params: Promise<{ productId: string }>;
 }) {
-  // Get the productId from the URL
   const { productId } = await params;
-
   const product = await getProductAction(productId);
 
   if (!product) return;
 
   return (
-    <main className="mx-auto max-w-4xl p-6">
-      {/* Product image */}
-      <div className="flex flex-col gap-8 md:flex-row">
-        <div className="flex-1">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-12 md:px-12">
+      {/* Título separado */}
+      <div className="mb-8 w-[90%] max-w-7xl text-left">
+        <h1 className="text-4xl font-extrabold text-gray-800">
+          {product.title}
+        </h1>
+      </div>
+
+      {/* Imagem + Categoria e Info lado a lado */}
+      <div className="flex w-[90%] max-w-7xl flex-col gap-12 md:flex-row md:items-start">
+        {/* Imagem */}
+        <div className="w-full md:w-1/2">
           <Image
             src={product.imageUrl}
             alt={product.title}
-            height={1000}
-            width={1000}
-            className="w-full rounded-lg object-cover shadow-lg"
+            width={1200}
+            height={1200}
+            className="h-auto w-full rounded-lg object-cover shadow-xl"
+            priority
           />
         </div>
 
-        {/* Product informations */}
-        <div className="flex-1">
-          <h1 className="text-3xl font-bold text-gray-800">{product.title}</h1>
-          <h3 className="text-base font-bold text-gray-800">
-            {product.category}
+        {/* Informações */}
+        <div className="w-full space-y-6 md:w-1/2">
+          <h3 className="text-xl font-medium text-gray-600">
+            Categoria:{" "}
+            <span className="font-semibold text-gray-800">
+              {product.category}
+            </span>
           </h3>
-          <p className="mt-4 text-2xl font-semibold text-blue-600">
+
+          <p className="text-4xl font-bold text-blue-600">
             R$ {product.price.toFixed(2)}
           </p>
-          <p className="mt-2 text-gray-700">{product.description}</p>
 
-          <h2 className="mt-2 text-xl text-gray-700">
-            Contacte o vendedor: {product.contact}
-          </h2>
+          <p className="text-lg leading-relaxed text-gray-700">
+            {product.description}
+          </p>
 
-          {/* Buy button */}
-          <button className="mt-6 w-full cursor-pointer rounded-lg bg-blue-600 py-3 text-white transition hover:bg-blue-700">
-            Comprar Agora
-          </button>
+          <p className="text-lg text-gray-800">
+            📞 <span className="font-semibold">Contato do vendedor:</span>{" "}
+            {product.contact}
+          </p>
         </div>
       </div>
     </main>
