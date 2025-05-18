@@ -1,5 +1,6 @@
 import { getProductsAction } from "../_lib/actions";
-import Product from "./Product";
+import { ProductType } from "../schemas/productSchema";
+import ProductCard from "./ProductCard";
 
 export default async function ProductList({ limit }: { limit?: number }) {
   const products = await getProductsAction();
@@ -10,16 +11,8 @@ export default async function ProductList({ limit }: { limit?: number }) {
 
   return (
     <>
-      {products.slice(0, slice).map((product) => (
-        <Product
-          key={product.id}
-          id={product.id}
-          description={product.description}
-          category={product.category}
-          price={product.price}
-          title={product.title}
-          imageUrl={product.imageUrl}
-        />
+      {products.slice(0, slice).map((product: ProductType) => (
+        <ProductCard key={product.id} product={product} />
       ))}
     </>
   );
