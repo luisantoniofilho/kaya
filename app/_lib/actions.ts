@@ -15,58 +15,80 @@ import {
 } from "./mongodb/mongodbActions";
 
 export async function signInAction() {
-  await signIn("google", { redirectTo: "/products" });
+  try {
+    await signIn("google", { redirectTo: "/products" });
+  } catch (error) {
+    console.error("Sign in failed:", error);
+  }
 }
 
 export async function signOutAction() {
-  await signOut({ redirectTo: "/" });
+  try {
+    await signOut({ redirectTo: "/" });
+  } catch (error) {
+    console.error("Sign out failed: ", error);
+  }
 }
 
 export async function addProductAction(formData: FormData) {
-  const data = Object.fromEntries(
-    Array.from(formData.entries()).filter(
-      // Remove intern fields
-      ([key]) => !key.startsWith("$ACTION_"),
-    ),
-  );
+  try {
+    const data = Object.fromEntries(
+      Array.from(formData.entries()).filter(
+        // Remove intern fields
+        ([key]) => !key.startsWith("$ACTION_"),
+      ),
+    );
 
-  const session = await auth();
-  if (!session?.user?.email) throw new Error("User not authenticated");
+    const session = await auth();
+    if (!session?.user?.email)
+      return { error: "User not authenticated", data: null };
 
-  const user = await getUser(session?.user?.email);
-  // Get the user id
-  const userId = user?._id.toHexString();
-  if (!userId) return;
+    const user = await getUser(session?.user?.email);
+    const userId = user?._id.toHexString();
+    if (!userId) return { error: "User ID not found", data: null };
 
-  const productWithUserId = { ...data, userId };
+    const productWithUserId = { ...data, userId };
 
-  // Parse the object into the schema
-  const result = productSchema.safeParse(productWithUserId);
+    // Parse the object into the schema
+    const result = productSchema.safeParse(productWithUserId);
 
-  if (!result.success) {
-    console.error(result.error.flatten());
-    return { error: result.error.flatten() };
+    if (!result.success) {
+      console.error(result.error.flatten());
+      return { error: result.error.flatten(), data: null };
+    }
+
+    // Split the image and the product
+    const { image, ...productParsed } = result.data;
+
+    // Upload the image and take the url from vercel blob
+    const { url: imageUrl } = await uploadImage(image as File);
+    if (!imageUrl)
+      return { error: "Erro ao fazer upload da imagem", data: null };
+
+    // Add the image URL from blob store
+    productParsed.imageUrl = imageUrl;
+
+    await addProduct(productParsed);
+    redirect("/products");
+  } catch (error) {
+    console.error("Error adding product: ", error);
+    return { error: "Unexpected error while adding product", data: null };
   }
-
-  // Split the image and the product
-  const { image, ...productParsed } = result.data;
-
-  // Upload the image and take the url from vercel blob
-  const { url: imageUrl } = await uploadImage(image as File);
-
-  // Add the image URL from blob store
-  productParsed.imageUrl = imageUrl;
-
-  await addProduct(productParsed);
-  redirect("/products");
 }
 
 export default async function getProductAction(productId: string) {
-  // Transform the productId into a MongoDB ObjectId
-  const objectId = ObjectId.createFromHexString(productId);
+  try {
+    if (!ObjectId.isValid(productId))
+      return { error: "Invalid product ID", data: null };
 
-  const product = await getProduct(objectId);
-  return product;
+    const objectId = new ObjectId(productId);
+    const product = await getProduct(objectId);
+
+    return { data: product, error: null };
+  } catch (error) {
+    console.error("Error fetching product: ", error);
+    return { error: "Failed to get product", data: null };
+  }
 }
 
 export async function getProductsAction(): Promise<
@@ -95,31 +117,40 @@ export async function getProductsAction(): Promise<
 }
 
 export async function getUserProductsAction() {
-  const session = await auth();
-  if (!session || !session.user || !session.user.email) return null;
+  try {
+    const session = await auth();
+    if (!session || !session.user || !session.user.email)
+      return { error: "User not authenticated", data: null };
 
-  const user = await getUser(session.user.email);
-  if (!user || !user._id) return null;
+    const user = await getUser(session.user.email);
+    if (!user?._id) return { error: "User not found", data: null };
 
-  // Array with user products
-  const userProducts = await getUserProducts(user._id.toString());
+    // Array with user products
+    const userProducts = await getUserProducts(user._id.toString());
 
-  // Change the _id to id and convert it to string
-  const userProductsWithStringId = userProducts.map(
-    ({ _id, ...otherProperties }) => ({
-      id: _id.toString(),
-      ...otherProperties,
-    }),
-  );
+    // Change the _id to id and convert it to string
+    const userProductsWithStringId = userProducts.map(
+      ({ _id, ...otherProperties }) => ({
+        id: _id.toString(),
+        ...otherProperties,
+      }),
+    );
 
-  const result = z.array(productSchema).safeParse(userProductsWithStringId);
+    const result = z.array(productSchema).safeParse(userProductsWithStringId);
 
-  if (!result.success) {
-    console.error(result.error.flatten());
-    return { error: result.error.flatten() };
+    if (!result.success) {
+      console.error(result.error.flatten());
+      return { error: result.error.flatten(), data: null };
+    }
+
+    const productsParsed = result.data;
+
+    return productsParsed;
+  } catch (error) {
+    console.error("Error fetching user products: ", error);
+    return {
+      error: "Unexpected error while fetching user products",
+      data: null,
+    };
   }
-
-  const productsParsed = result.data;
-
-  return productsParsed;
 }
