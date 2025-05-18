@@ -6,7 +6,7 @@ import { LoginIcon } from "./LoginIcon";
 export function Header() {
   const links = [
     { href: "/products", label: "Produtos" },
-    { href: "/advertise", label: "Anunciar" },
+    { href: "/list", label: "Anunciar" },
     { href: "/faq", label: "FAQ" },
     { href: "/about", label: "Sobre nós" },
   ];
