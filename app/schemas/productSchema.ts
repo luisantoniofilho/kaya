@@ -39,6 +39,13 @@ export const productSchema = z.object({
     })
     .optional(),
   imageUrl: z.string().optional(),
+  phone: z.coerce
+    .string({
+      required_error: "Telefone é obrigatório",
+      invalid_type_error: "Telefone deve ser uma string",
+    })
+    .regex(/^\d{11}$/, "Digite um número de telefone com 11 dígitos"),
+  userId: z.string().length(24, "ID inválido"),
 });
 
 export type ProductType = z.infer<typeof productSchema>;
