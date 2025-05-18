@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import AdvertiseProductForm from "../_components/AdvertiseProductForm";
+import ListProductForm from "../_components/ListProductForm";
 import { auth } from "../_lib/auth";
 
 export default async function Page() {
@@ -12,7 +12,7 @@ export default async function Page() {
         Anunciar Produto
       </h1>
 
-      <AdvertiseProductForm />
+      <ListProductForm />
     </main>
   );
 }

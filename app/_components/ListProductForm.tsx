@@ -9,7 +9,7 @@ import Input from "./Input";
 import Select from "./Select";
 import SpinnerMini from "./SpinnerMini";
 
-export default function AdvertiseProductForm() {
+export default function ListProductForm() {
   const [isPending, startTransition] = useTransition();
 
   function handleSubmit(formData: FormData) {
@@ -41,6 +41,7 @@ export default function AdvertiseProductForm() {
         Descrição
       </Input>
 
+      {/* Product category */}
       <Select
         label="Categoria"
         name="category"
@@ -60,6 +61,11 @@ export default function AdvertiseProductForm() {
         optionalClassName="cursor-pointer"
       >
         Imagem
+      </Input>
+
+      {/* Phone */}
+      <Input type="number" name="phone" placeholder="11912345678">
+        Telefone para contato (com ddd)
       </Input>
 
       <Button type="submit" disable={isPending}>
