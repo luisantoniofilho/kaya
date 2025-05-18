@@ -95,3 +95,33 @@ export async function getProductsAction(): Promise<
 
   return productsParsed;
 }
+
+export async function getUserProductsAction() {
+  const session = await auth();
+  if (!session || !session.user || !session.user.email) return null;
+
+  const user = await getUser(session.user.email);
+  if (!user || !user._id) return null;
+
+  // Array with user products
+  const userProducts = await getUserProducts(user._id.toString());
+
+  // Change the _id to id and convert it to string
+  const userProductsWithStringId = userProducts.map(
+    ({ _id, ...otherProperties }) => ({
+      id: _id.toString(),
+      ...otherProperties,
+    }),
+  );
+
+  const result = z.array(productSchema).safeParse(userProductsWithStringId);
+
+  if (!result.success) {
+    console.error(result.error.flatten());
+    return { error: result.error.flatten() };
+  }
+
+  const productsParsed = result.data;
+
+  return productsParsed;
+}
