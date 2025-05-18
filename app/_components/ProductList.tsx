@@ -4,7 +4,6 @@ import ProductCard from "./ProductCard";
 
 export default async function ProductList({ limit }: { limit?: number }) {
   const { data: products, error } = await getProductsAction();
-  console.log(products);
 
   if (!Array.isArray(products)) {
     console.error(error || "Erro desconhecido ao buscar produtos.");
