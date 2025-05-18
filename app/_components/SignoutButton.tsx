@@ -12,7 +12,7 @@ export default function SignoutButton() {
           width={24}
           className="rounded-full border border-white bg-white"
         />
-        <span>Sign out</span>
+        <span>Sair</span>
       </button>
     </form>
   );

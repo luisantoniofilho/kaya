@@ -23,16 +23,16 @@ export default async function Page({
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-12 md:px-12">
-      {/* Título separado */}
+      {/* Title */}
       <div className="mb-8 w-[90%] max-w-7xl text-left">
         <h1 className="text-4xl font-extrabold text-gray-800">
           {product.title}
         </h1>
       </div>
 
-      {/* Imagem + Categoria e Info lado a lado */}
+      {/* Image + Category and Info side by side */}
       <div className="flex w-[90%] max-w-7xl flex-col gap-12 md:flex-row md:items-start">
-        {/* Imagem */}
+        {/* Image */}
         <div className="w-full md:w-1/2">
           <Image
             src={product.imageUrl}
@@ -44,7 +44,7 @@ export default async function Page({
           />
         </div>
 
-        {/* Informações */}
+        {/* Info */}
         <div className="w-full space-y-6 md:w-1/2">
           <h3 className="text-xl font-medium text-gray-600">
             Categoria:{" "}
@@ -62,8 +62,10 @@ export default async function Page({
           </p>
 
           <p className="text-lg text-gray-800">
-            📞 <span className="font-semibold">Contato do vendedor:</span>{" "}
-            {product.contact}
+            📞{" "}
+            <span className="font-semibold">
+              Telefone do vendedor: {product.phone}
+            </span>
           </p>
         </div>
       </div>

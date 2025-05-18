@@ -20,7 +20,7 @@ export default async function Page() {
 
         {!session ? (
           <>
-            <h2 className="mb-4 text-center text-3xl font-bold">Welcome!</h2>
+            <h2 className="mb-4 text-center text-3xl font-bold">Bem-vindo!</h2>
             <p className="mb-6 text-center text-base text-gray-600 md:text-lg">
               Login ou criar uma conta
             </p>

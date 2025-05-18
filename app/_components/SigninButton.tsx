@@ -12,7 +12,7 @@ export default function SigninButton() {
           width={24}
           className="rounded-full border border-white bg-white"
         />
-        <span>Continue with google</span>
+        <span>Login ou registro com google</span>
       </button>
     </form>
   );
