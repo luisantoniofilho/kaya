@@ -36,6 +36,14 @@ export async function getProducts() {
   return products;
 }
 
+export async function getUserProducts(userId: string) {
+  const userProducts = await productsCollection
+    .find({ userId: userId })
+    .toArray();
+
+  return userProducts;
+}
+
 export async function getProduct(productId: ObjectId) {
   // Get a specific product with productId
   const product = await productsCollection.findOne({ _id: productId });
