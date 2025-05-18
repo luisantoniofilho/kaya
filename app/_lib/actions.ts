@@ -33,7 +33,6 @@ export async function addProductAction(formData: FormData) {
   const session = await auth();
   if (!session?.user?.email) throw new Error("User not authenticated");
 
-  // Take the user id
   const user = await getUser(session?.user?.email);
   // Get the user id
   const userId = user?._id.toHexString();
@@ -59,7 +58,6 @@ export async function addProductAction(formData: FormData) {
   productParsed.imageUrl = imageUrl;
 
   await addProduct(productParsed);
-
   redirect("/products");
 }
 
