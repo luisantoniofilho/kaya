@@ -4,9 +4,15 @@ import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { productSchema, ProductType } from "../schemas/productSchema";
-import { signIn, signOut } from "./auth";
+import { auth, signIn, signOut } from "./auth";
 import { uploadImage } from "./blobActions";
-import { addProduct, getProduct, getProducts } from "./mongodb/mongodbActions";
+import {
+  addProduct,
+  getProduct,
+  getProducts,
+  getUser,
+  getUserProducts,
+} from "./mongodb/mongodbActions";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/products" });
@@ -17,32 +23,39 @@ export async function signOutAction() {
 }
 
 export async function addProductAction(formData: FormData) {
-  // Remove intern fields
-  const formDataEntries = Array.from(formData.entries()).filter(
-    ([key]) => !key.startsWith("$ACTION_"),
+  const data = Object.fromEntries(
+    Array.from(formData.entries()).filter(
+      // Remove intern fields
+      ([key]) => !key.startsWith("$ACTION_"),
+    ),
   );
 
-  // Take the product
-  const { ...rawProduct } = Object.fromEntries(formDataEntries);
+  const session = await auth();
+  if (!session?.user?.email) throw new Error("User not authenticated");
+
+  // Take the user id
+  const user = await getUser(session?.user?.email);
+  // Get the user id
+  const userId = user?._id.toHexString();
+  if (!userId) return;
+
+  const productWithUserId = { ...data, userId };
 
   // Parse the object into the schema
-  const result = productSchema.safeParse(rawProduct);
+  const result = productSchema.safeParse(productWithUserId);
 
   if (!result.success) {
     console.error(result.error.flatten());
     return { error: result.error.flatten() };
   }
 
-  // Take the product parsed
-  const productParsed = result.data;
+  // Split the image and the product
+  const { image, ...productParsed } = result.data;
 
   // Upload the image and take the url from vercel blob
-  const { url: imageUrl } = await uploadImage(productParsed.image as File);
+  const { url: imageUrl } = await uploadImage(image as File);
 
-  // Remove the image file
-  delete productParsed.image;
-
-  // Add the image URL in blob store
+  // Add the image URL from blob store
   productParsed.imageUrl = imageUrl;
 
   await addProduct(productParsed);
