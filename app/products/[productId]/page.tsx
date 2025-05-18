@@ -17,56 +17,79 @@ export default async function Page({
   params: Promise<{ productId: string }>;
 }) {
   const { productId } = await params;
-  const product = await getProductAction(productId);
+  const { data: product, error } = await getProductAction(productId);
 
-  if (!product) return;
+  if (error) {
+    console.error(error);
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-gray-100 px-6 py-20">
+        <p className="text-center text-xl text-red-600">
+          Ocorreu um erro ao carregar o produto.
+        </p>
+      </main>
+    );
+  }
+
+  if (!product) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-gray-100 px-6 py-20">
+        <p className="text-center text-xl text-gray-500">
+          Produto não encontrado.
+        </p>
+      </main>
+    );
+  }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-12 md:px-12">
+    <main className="flex min-h-screen flex-col items-center bg-gray-50 px-4 py-12 md:px-12">
       {/* Title */}
-      <div className="mb-8 w-[90%] max-w-7xl text-left">
-        <h1 className="text-4xl font-extrabold text-gray-800">
+      <div className="mb-10 w-full max-w-7xl px-2 text-left">
+        <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
           {product.title}
         </h1>
       </div>
 
-      {/* Image + Category and Info side by side */}
-      <div className="flex w-[90%] max-w-7xl flex-col gap-12 md:flex-row md:items-start">
+      {/* Image + Info */}
+      <div className="grid w-full max-w-7xl grid-cols-1 gap-12 md:grid-cols-2">
         {/* Image */}
-        <div className="w-full md:w-1/2">
+        <div className="flex justify-center">
           <Image
             src={product.imageUrl}
             alt={product.title}
-            width={1200}
-            height={1200}
-            className="h-auto w-full rounded-lg object-cover shadow-xl"
+            width={800}
+            height={800}
+            className="w-full max-w-lg rounded-xl object-cover shadow-lg"
             priority
           />
         </div>
 
-        {/* Info */}
-        <div className="w-full space-y-6 md:w-1/2">
-          <h3 className="text-xl font-medium text-gray-600">
-            Categoria:{" "}
-            <span className="font-semibold text-gray-800">
+        {/* Informações */}
+        <div className="flex flex-col justify-start gap-6 text-gray-800">
+          <div>
+            <span className="text-sm font-medium text-gray-500">Categoria</span>
+            <p className="text-lg font-semibold text-gray-700">
               {product.category}
-            </span>
-          </h3>
+            </p>
+          </div>
 
-          <p className="text-4xl font-bold text-blue-600">
-            R$ {product.price.toFixed(2)}
-          </p>
+          <div>
+            <span className="text-sm font-medium text-gray-500">Preço</span>
+            <p className="text-3xl font-bold text-blue-600">
+              R$ {product.price.toFixed(2)}
+            </p>
+          </div>
 
-          <p className="text-lg leading-relaxed text-gray-700">
-            {product.description}
-          </p>
+          <div>
+            <span className="text-sm font-medium text-gray-500">Descrição</span>
+            <p className="text-base leading-relaxed">{product.description}</p>
+          </div>
 
-          <p className="text-lg text-gray-800">
-            📞{" "}
-            <span className="font-semibold">
-              Telefone do vendedor: {product.phone}
-            </span>
-          </p>
+          <div className="mt-4 border-t pt-4">
+            <p className="text-base font-medium">
+              📞 Telefone do vendedor:{" "}
+              <span className="font-semibold">{product.phone}</span>
+            </p>
+          </div>
         </div>
       </div>
     </main>
