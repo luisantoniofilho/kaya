@@ -3,10 +3,11 @@ import { ProductType } from "../schemas/productSchema";
 import ProductCard from "./ProductCard";
 
 export default async function ProductList({ limit }: { limit?: number }) {
-  const products = await getProductsAction();
+  const { data: products, error } = await getProductsAction();
+  console.log(products);
 
   if (!Array.isArray(products)) {
-    console.error(products?.error || "Erro desconhecido ao buscar produtos.");
+    console.error(error || "Erro desconhecido ao buscar produtos.");
     return (
       <div className="py-10 text-center">
         <p className="text-lg font-medium text-red-600">
@@ -28,10 +29,10 @@ export default async function ProductList({ limit }: { limit?: number }) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {displayedProducts.map((product: ProductType) => (
+    <>
+      {products.slice(0, slice).map((product: ProductType) => (
         <ProductCard key={product.id} product={product} />
       ))}
-    </div>
+    </>
   );
 }
