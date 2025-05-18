@@ -91,29 +91,32 @@ export default async function getProductAction(productId: string) {
   }
 }
 
-export async function getProductsAction(): Promise<
-  | ProductType[]
-  | { error: z.inferFlattenedErrors<z.ZodArray<typeof productSchema>> }
-> {
-  const products = await getProducts();
+export async function getProductsAction(): Promise<{
+  data: ProductType[] | null;
+  error:
+    | z.inferFlattenedErrors<z.ZodArray<typeof productSchema>>
+    | string
+    | null;
+}> {
+  try {
+    const products = await getProducts();
+    const productsWithStringId = products.map(({ _id, ...rest }) => ({
+      id: _id.toString(),
+      ...rest,
+    }));
 
-  // Return the products with the id transformed from MongoDB ObjectID to HexString
-  const productsWithStringId = products.map(({ _id, ...otherProperties }) => ({
-    id: _id.toString(),
-    ...otherProperties,
-  }));
+    const result = z.array(productSchema).safeParse(productsWithStringId);
 
-  // Parse the object array into the schema
-  const result = z.array(productSchema).safeParse(productsWithStringId);
+    if (!result.success) {
+      console.error(result.error.flatten());
+      return { error: result.error.flatten(), data: null };
+    }
 
-  if (!result.success) {
-    console.error(result.error.flatten());
-    return { error: result.error.flatten() };
+    return { data: result.data, error: null };
+  } catch (error) {
+    console.error("Unexpected error in getProductsAction:", error);
+    return { data: null, error: "Unexpected error while getting products" };
   }
-
-  const productsParsed = result.data;
-
-  return productsParsed;
 }
 
 export async function getUserProductsAction() {
@@ -143,9 +146,9 @@ export async function getUserProductsAction() {
       return { error: result.error.flatten(), data: null };
     }
 
-    const productsParsed = result.data;
+    const data = result.data;
 
-    return productsParsed;
+    return { data };
   } catch (error) {
     console.error("Error fetching user products: ", error);
     return {
