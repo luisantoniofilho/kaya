@@ -17,7 +17,7 @@ export default function ListProductForm() {
       const result = await addProductAction(formData);
 
       if (result?.error) {
-        Object.entries(result.error.fieldErrors).forEach(([key, value]) => {
+        Object.entries(result.error).forEach(([key, value]) => {
           console.error(`${key}: ${value}`);
           toast.error(`${key.toString()}: ${value.toString()}`);
         });
