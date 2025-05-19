@@ -5,6 +5,7 @@ import { addUser, getUser } from "./mongodb/mongodbActions";
 import client from "./mongodb/mongodbConfig";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  trustHost: true,
   adapter: MongoDBAdapter(client),
   providers: [
     Google({
