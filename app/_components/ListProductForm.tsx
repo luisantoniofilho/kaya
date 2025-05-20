@@ -64,8 +64,14 @@ export default function ListProductForm() {
       </Input>
 
       {/* Phone */}
-      <Input type="number" name="phone" placeholder="11912345678">
-        Telefone para contato (com ddd)
+      <Input
+        type="tel"
+        name="tel"
+        minLength={11}
+        maxLength={11}
+        placeholder="11912345678"
+      >
+        Telefone para contato com DDD (insira somente números)
       </Input>
 
       <Button type="submit" disable={isPending}>
