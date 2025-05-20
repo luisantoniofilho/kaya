@@ -9,14 +9,17 @@ const MAX_FILE_SIZE = 4_718_592;
 
 export const productSchema = z.object({
   id: z.string().optional(),
-  title: z.string().min(3, "Título muito curto"),
-  description: z.string().min(3, "Descrição muito curta"),
+  title: z.string().min(3, { error: "Título muito curto" }),
+  description: z.string().min(3, { error: "Descrição muito curta" }),
   category: z.enum(PRODUCT_CATEGORIES, {
-    errorMap: () => ({ message: "Selecione uma categoria válida" }),
+    error: "Selecione uma categoria válida",
   }),
   price: z.coerce
     .number({
-      invalid_type_error: "Digite um número válido",
+      error: (issue) =>
+        issue.input === undefined
+          ? "Esse campo é obrigatório"
+          : "Digite um número válido",
     })
     .positive("O preço não pode ser negativo"),
   image: z
@@ -31,11 +34,10 @@ export const productSchema = z.object({
         ];
         return imageTypes.includes(file.type);
       },
-      { message: "Escolha uma imagem válida" },
+      { error: "Escolha uma imagem válida" },
     )
     .refine((file) => file.size <= MAX_FILE_SIZE, {
-      message:
-        "O tamanho da imagem está muito grande, escolha uma imagem menor",
+      error: "O tamanho da imagem está muito grande, escolha uma imagem menor",
     })
     .optional(),
   imageUrl: z.string().optional(),
