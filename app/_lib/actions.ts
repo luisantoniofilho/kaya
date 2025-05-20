@@ -2,8 +2,8 @@
 
 import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
-import { z } from "zod";
-import { productSchema, ProductType } from "../schemas/productSchema";
+import { prettifyError, z } from "zod/v4";
+import { productSchema } from "../schemas/productSchema";
 import { auth, signIn, signOut } from "./auth";
 import { uploadImage } from "./blobActions";
 import {
@@ -53,8 +53,8 @@ export async function addProductAction(formData: FormData) {
     const result = productSchema.safeParse(productWithUserId);
 
     if (!result.success) {
-      console.error(result.error.flatten());
-      return { error: result.error.flatten(), data: null };
+      console.error(result.error);
+      return { error: prettifyError(result.error!), data: null };
     }
 
     // Split the image and the product
@@ -91,13 +91,7 @@ export default async function getProductAction(productId: string) {
   }
 }
 
-export async function getProductsAction(): Promise<{
-  data: ProductType[] | null;
-  error:
-    | z.inferFlattenedErrors<z.ZodArray<typeof productSchema>>
-    | string
-    | null;
-}> {
+export async function getProductsAction() {
   try {
     const products = await getProducts();
     const productsWithStringId = products.map(({ _id, ...rest }) => ({
@@ -108,8 +102,8 @@ export async function getProductsAction(): Promise<{
     const result = z.array(productSchema).safeParse(productsWithStringId);
 
     if (!result.success) {
-      console.error(result.error.flatten());
-      return { error: result.error.flatten(), data: null };
+      console.error(result.error);
+      return { error: z.prettifyError(result.error!), data: null };
     }
 
     return { data: result.data, error: null };
@@ -142,8 +136,8 @@ export async function getUserProductsAction() {
     const result = z.array(productSchema).safeParse(userProductsWithStringId);
 
     if (!result.success) {
-      console.error(result.error.flatten());
-      return { error: result.error.flatten(), data: null };
+      console.error(result.error);
+      return { error: z.prettifyError(result.error!), data: null };
     }
 
     const data = result.data;
