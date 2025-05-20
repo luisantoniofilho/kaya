@@ -14,13 +14,29 @@ export default function ListProductForm() {
 
   function handleSubmit(formData: FormData) {
     startTransition(async () => {
-      const result = await addProductAction(formData);
+      // String error
+      const { error } = await addProductAction(formData);
 
-      if (result?.error) {
-        Object.entries(result.error).forEach(([key, value]) => {
-          console.error(`${key}: ${value}`);
-          toast.error(`${key.toString()}: ${value.toString()}`);
-        });
+      /* Error example
+      ✖ Título muito curto
+      → at title */
+
+      if (error) {
+        console.error(error);
+
+        error
+          // Split the error string into lines
+          .split("\n")
+          // Keep only the lines that contain error messages
+          .filter((line) => line.startsWith("✖"))
+          // Remove the ✖ symbol and trim whitespace
+          .map((line) => line.replace("✖", "").trim())
+          // Filter out any empty or falsy values
+          .filter(Boolean)
+          // Display each error message using a toast
+          .forEach((msg) => toast.error(msg, { duration: 4000 }));
+
+        return;
       }
     });
   }
