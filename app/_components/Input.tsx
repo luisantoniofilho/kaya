@@ -6,6 +6,11 @@ type InputProps = {
   name: string;
   optionalClassName?: string;
   accept?: string;
+  min?: number;
+  max?: number;
+  size?: number;
+  minLength?: number;
+  maxLength?: number;
   children: ReactNode;
 };
 
@@ -15,6 +20,11 @@ export default function Input({
   name,
   optionalClassName,
   accept,
+  minLength,
+  min,
+  maxLength,
+  max,
+  size,
   children,
 }: InputProps) {
   return (
@@ -35,6 +45,11 @@ export default function Input({
           placeholder={placeholder}
           name={name}
           accept={accept}
+          min={min}
+          max={max}
+          size={size}
+          minLength={minLength}
+          maxLength={maxLength}
           className={`w-full rounded-md border border-gray-300 p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none ${optionalClassName}`}
         />
       )}
