@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod/v4";
 import { PRODUCT_CATEGORIES } from "../constants/productCategories";
 
 /* The vercel blob limit is 4.5mb
@@ -41,12 +41,9 @@ export const productSchema = z.object({
     })
     .optional(),
   imageUrl: z.string().optional(),
-  phone: z.coerce
-    .string({
-      required_error: "Telefone é obrigatório",
-      invalid_type_error: "Telefone deve ser uma string",
-    })
-    .regex(/^\d{11}$/, "Digite um número de telefone com 11 dígitos"),
+  phone: z.coerce.string().refine((val) => /^\d{11}$/.test(val), {
+    error: "Digite um telefone válido com 11 dígitos",
+  }),
   userId: z.string().length(24, "ID inválido"),
 });
 
