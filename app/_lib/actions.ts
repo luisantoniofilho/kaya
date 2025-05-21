@@ -2,6 +2,7 @@
 
 import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
+import { z } from "zod/v4";
 import { getAuthenticatedUserEmail } from "../_helpers/getAuthenticatedEmail";
 import { productSchema } from "../schemas/productSchema";
 import { auth, signIn, signOut } from "./auth";
@@ -70,7 +71,7 @@ export async function addProductAction(formData: FormData) {
     redirect("/products");
   } catch (error) {
     console.error("Error adding product: ", error);
-    return { error: "Unexpected error while adding product", data: null };
+    return { error: "Erro inesperado anunciando produto", data: null };
   }
 }
 
@@ -85,7 +86,7 @@ export default async function getProductAction(productId: string) {
     return { data: product, error: null };
   } catch (error) {
     console.error("Error fetching product: ", error);
-    return { error: "Failed to get product", data: null };
+    return { error: "Erro ao buscar produto", data: null };
   }
 }
 
@@ -106,8 +107,8 @@ export async function getProductsAction() {
 
     return { data: result.data, error: null };
   } catch (error) {
-    console.error("Unexpected error in getProductsAction:", error);
-    return { data: null, error: "Unexpected error while getting products" };
+    console.error("Unexpected error in getProductsAction: ", error);
+    return { data: null, error: "Erro inesperado procurando produtos" };
   }
 }
 
@@ -142,7 +143,7 @@ export async function getUserProductsAction() {
   } catch (error) {
     console.error("Error fetching user products: ", error);
     return {
-      error: "Unexpected error while fetching user products",
+      error: "Erro inesperado buscando os produtos",
       data: null,
     };
   }
