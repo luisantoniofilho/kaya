@@ -75,7 +75,7 @@ export async function addProductAction(formData: FormData) {
   }
 }
 
-export default async function getProductAction(productId: string) {
+export async function getProductAction(productId: string) {
   try {
     if (!ObjectId.isValid(productId))
       return { error: "Invalid product ID", data: null };
