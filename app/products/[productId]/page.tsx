@@ -1,4 +1,4 @@
-import getProductAction, { getProductsAction } from "@/app/_lib/actions";
+import { getProductAction, getProductsAction } from "@/app/_lib/actions";
 import Image from "next/image";
 
 export const revalidate = 60;
