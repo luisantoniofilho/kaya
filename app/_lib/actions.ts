@@ -2,7 +2,7 @@
 
 import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
-import { prettifyError, z } from "zod/v4";
+import { getAuthenticatedUserEmail } from "../_helpers/getAuthenticatedEmail";
 import { productSchema } from "../schemas/productSchema";
 import { auth, signIn, signOut } from "./auth";
 import { uploadImage } from "./blobActions";
@@ -39,11 +39,9 @@ export async function addProductAction(formData: FormData) {
       ),
     );
 
-    const session = await auth();
-    if (!session?.user?.email)
-      return { error: "User not authenticated", data: null };
+    const userEmail = await getAuthenticatedUserEmail();
 
-    const user = await getUser(session?.user?.email);
+    const user = await getUser(userEmail);
     const userId = user?._id.toHexString();
     if (!userId) return { error: "User ID not found", data: null };
 
@@ -115,11 +113,9 @@ export async function getProductsAction() {
 
 export async function getUserProductsAction() {
   try {
-    const session = await auth();
-    if (!session || !session.user || !session.user.email)
-      return { error: "User not authenticated", data: null };
-
-    const user = await getUser(session.user.email);
+    // Get the user email if it is authenticated
+    const userEmail = await getAuthenticatedUserEmail();
+    const user = await getUser(userEmail);
     if (!user?._id) return { error: "User not found", data: null };
 
     // Array with user products
