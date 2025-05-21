@@ -3,12 +3,16 @@ import { UserType } from "@/app/schemas/userSchema";
 import client from "./mongodbConfig";
 import { ObjectId } from "mongodb";
 
-// Database
+// DATABASE
 const db = client.db("kaya");
 
-// Collections
+// COLLECTIONS
 const usersCollection = db.collection("users");
 const productsCollection = db.collection("products");
+
+/* //////////////////
+// USER FUNCTIONS
+*/ //////////////////
 
 export async function addUser(user: UserType) {
   // Add a user to the usersCollection
@@ -24,9 +28,20 @@ export async function getUser(userEmail: string) {
   return user;
 }
 
+/* //////////////////
+// PRODUCTS FUNCTIONS
+*/ //////////////////
+
 export async function addProduct(product: ProductType) {
   // Insert the new product on the products collection
   await productsCollection.insertOne(product);
+}
+
+export async function getProduct(productId: ObjectId) {
+  // Get a specific product with productId
+  const product = await productsCollection.findOne({ _id: productId });
+
+  return product;
 }
 
 export async function getProducts() {
@@ -44,9 +59,6 @@ export async function getUserProducts(userId: string) {
   return userProducts;
 }
 
-export async function getProduct(productId: ObjectId) {
-  // Get a specific product with productId
-  const product = await productsCollection.findOne({ _id: productId });
-
-  return product;
+export async function deleteProduct(productId: ObjectId) {
+  await productsCollection.deleteOne({ _id: productId });
 }
