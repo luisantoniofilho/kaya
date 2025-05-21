@@ -21,7 +21,9 @@ export default function ProductCard({ product }: { product: ProductType }) {
         <h3 className="text-lg font-semibold text-stone-800">
           {product.title}
         </h3>
-        <p className="mt-1 text-stone-600">R$ {product.price}</p>
+        <p className="mt-1 text-stone-600">
+          {product.price > 0 ? `R$${product.price}` : "Doação"}
+        </p>
         <p className="mt-1 text-stone-600">{product.category}</p>
         <p className="mt-1 text-stone-600">{product.description}</p>
 
