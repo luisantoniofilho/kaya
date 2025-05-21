@@ -1,6 +1,6 @@
 "use server";
 
-import { put } from "@vercel/blob";
+import { del, put } from "@vercel/blob";
 
 export async function uploadImage(imageFile: File) {
   // Upload the product images to a storage
@@ -8,5 +8,11 @@ export async function uploadImage(imageFile: File) {
     access: "public",
     addRandomSuffix: true,
   });
+  return blob;
+}
+
+export async function deleteImage(imageUrl: string) {
+  const blob = await del(imageUrl);
+
   return blob;
 }
