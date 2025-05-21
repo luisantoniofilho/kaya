@@ -5,10 +5,11 @@ import { redirect } from "next/navigation";
 import { z } from "zod/v4";
 import { getAuthenticatedUserEmail } from "../_helpers/getAuthenticatedEmail";
 import { productSchema } from "../schemas/productSchema";
-import { auth, signIn, signOut } from "./auth";
-import { uploadImage } from "./blobActions";
+import { signIn, signOut } from "./auth";
+import { deleteImage, uploadImage } from "./blobActions";
 import {
   addProduct,
+  deleteProduct,
   getProduct,
   getProducts,
   getUser,
@@ -146,5 +147,29 @@ export async function getUserProductsAction() {
       error: "Erro inesperado buscando os produtos",
       data: null,
     };
+  }
+}
+
+export async function deleteProductAction(productId: string) {
+  try {
+    const userEmail = await getAuthenticatedUserEmail();
+    const user = await getUser(userEmail);
+
+    const { data: product } = await getProductAction(productId);
+    if (!product) return { error: "Produto não encontrado" };
+
+    if (product.userId !== user?._id.toString())
+      return { error: "Você não está autorizado a deletar esse  produto" };
+
+    await deleteImage(product.imageUrl);
+
+    const objProductIt = ObjectId.createFromHexString(productId);
+    await deleteProduct(objProductIt);
+
+    // Return true if delete is successful
+    return { data: true, error: null };
+  } catch (error) {
+    console.error(error);
+    return { error: "Erro desconhecido" };
   }
 }
