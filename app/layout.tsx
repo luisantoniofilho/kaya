@@ -15,13 +15,13 @@ export const metadata = {
     default: "Kaya",
   },
   description:
-    "Dual-authentication e-commerce solution for businesses (CNPJ) and consumers (CPF). Built with Next.js 14, Firebase, and NextAuth. Experience secure shopping and streamlined selling.",
+    "Dual-authentication e-commerce solution for businesses (CNPJ) and consumers (CPF). Built with Next.js 15, MongoDB and NextAuth. Experience secure shopping and streamlined selling.",
   keywords: [
     "nextjs ecommerce",
     "firebase store",
     "CPF CNPJ authentication",
     "modern online shopping",
-    "Next.js 14 e-commerce",
+    "Next.js 15 e-commerce",
   ],
 };
 
