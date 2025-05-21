@@ -53,7 +53,7 @@ export async function addProductAction(formData: FormData) {
 
     if (!result.success) {
       console.error(result.error);
-      return { error: prettifyError(result.error!), data: null };
+      return { error: z.prettifyError(result.error!), data: null };
     }
 
     // Split the image and the product
