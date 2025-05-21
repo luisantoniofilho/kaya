@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { auth } from "../_lib/auth";
 import { redirect } from "next/navigation";
+import { auth } from "../_lib/auth";
 
 export default async function Page() {
   const session = await auth();
@@ -10,6 +10,7 @@ export default async function Page() {
   return (
     <div className="mx-auto max-w-lg p-6">
       <h1 className="mb-4 text-2xl font-bold">Minha Conta</h1>
+
       <nav className="flex space-x-4 border-b pb-2">
         <Link
           href="/account/listings"
@@ -21,9 +22,9 @@ export default async function Page() {
           Minhas Vendas
         </Link>
       </nav>
-      <p className="mt-4 text-gray-600">
-        Gerencie suas vendas e anúncios aqui.
-      </p>
+      <Link className="text-cyan-600" href={"/login"}>
+        Deseja sair da sua conta? Clique aqui
+      </Link>
     </div>
   );
 }
