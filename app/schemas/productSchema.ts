@@ -41,9 +41,12 @@ export const productSchema = z.object({
     })
     .optional(),
   imageUrl: z.string().optional(),
-  phone: z.coerce.string().refine((val) => /^\d{11}$/.test(val), {
-    error: "Digite um telefone válido com 11 dígitos",
-  }),
+  tel: z
+    .string()
+    .min(11, { error: "Telefone é obrigatório" })
+    .refine((val) => /^\d{11}$/.test(val), {
+      error: "Digite um telefone válido com 11 dígitos",
+    }),
   userId: z.string().length(24, "ID inválido"),
 });
 
