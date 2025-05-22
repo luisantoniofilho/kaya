@@ -25,47 +25,41 @@ export async function signOutAction() {
 }
 
 export async function addProductAction(formData: FormData) {
-  try {
-    const data = Object.fromEntries(
-      Array.from(formData.entries()).filter(
-        // Remove intern fields
-        ([key]) => !key.startsWith("$ACTION_"),
-      ),
-    );
+  const data = Object.fromEntries(
+    Array.from(formData.entries()).filter(
+      // Remove intern fields
+      ([key]) => !key.startsWith("$ACTION_"),
+    ),
+  );
 
-    const userEmail = await getAuthenticatedUserEmail();
+  const userEmail = await getAuthenticatedUserEmail();
 
-    const user = await getUser(userEmail);
-    const userId = user?._id.toHexString();
-    if (!userId) return { error: "User ID not found", data: null };
+  const user = await getUser(userEmail);
+  const userId = user?._id.toHexString();
+  if (!userId) return { error: "User ID not found", data: null };
 
-    const productWithUserId = { ...data, userId };
+  const productWithUserId = { ...data, userId };
 
-    // Parse the object into the schema
-    const result = productSchema.safeParse(productWithUserId);
+  // Parse the object into the schema
+  const result = productSchema.safeParse(productWithUserId);
 
-    if (!result.success) {
-      console.error(result.error);
-      return { error: z.prettifyError(result.error!), data: null };
-    }
-
-    // Split the image and the product
-    const { image, ...productParsed } = result.data;
-
-    // Upload the image and take the url from vercel blob
-    const { url: imageUrl } = await uploadImage(image as File);
-    if (!imageUrl)
-      return { error: "Erro ao fazer upload da imagem", data: null };
-
-    // Add the image URL from blob store
-    productParsed.imageUrl = imageUrl;
-
-    await addProduct(productParsed);
-    redirect("/products");
-  } catch (error) {
-    console.error("Error adding product: ", error);
-    return { error: "Erro inesperado anunciando produto", data: null };
+  if (!result.success) {
+    console.error(result.error);
+    return { error: z.prettifyError(result.error!), data: null };
   }
+
+  // Split the image and the product
+  const { image, ...productParsed } = result.data;
+
+  // Upload the image and take the url from vercel blob
+  const { url: imageUrl } = await uploadImage(image as File);
+  if (!imageUrl) return { error: "Erro ao fazer upload da imagem", data: null };
+
+  // Add the image URL from blob store
+  productParsed.imageUrl = imageUrl;
+
+  await addProduct(productParsed);
+  redirect("/products");
 }
 
 export async function getProductAction(productId: string) {
