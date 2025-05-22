@@ -1,4 +1,4 @@
-import Product from "@/app/_components/ProductCard";
+import UserProductCard from "@/app/_components/UserProductCard";
 import { getUserProductsAction } from "@/app/_lib/actions";
 import { auth } from "@/app/_lib/auth";
 import { redirect } from "next/navigation";
@@ -52,7 +52,7 @@ export default async function Page() {
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {userProducts.map((product) => (
-            <Product key={product.id} product={product} />
+            <UserProductCard key={product.id} product={product} />
           ))}
         </div>
       </div>
