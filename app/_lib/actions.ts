@@ -17,19 +17,11 @@ import {
 } from "./mongodb/mongodbActions";
 
 export async function signInAction() {
-  try {
-    await signIn("google", { redirectTo: "/products" });
-  } catch (error) {
-    console.error("Sign in failed:", error);
-  }
+  await signIn("google", { redirectTo: "/products" });
 }
 
 export async function signOutAction() {
-  try {
-    await signOut({ redirectTo: "/" });
-  } catch (error) {
-    console.error("Sign out failed: ", error);
-  }
+  await signOut({ redirectTo: "/" });
 }
 
 export async function addProductAction(formData: FormData) {
