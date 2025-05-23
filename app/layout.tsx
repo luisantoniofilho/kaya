@@ -31,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${quicksand.className} antialiased`}>
+    <html lang="en" className={quicksand.className}>
+      <body className={"antialiased"}>
         <SessionProvider>
           <Toaster />
           <Header />
