@@ -13,7 +13,7 @@ export default function ProductCard({ product }: { product: ProductType }) {
         alt={product.title}
         height={500}
         width={500}
-        className="h-48 w-full object-cover"
+        className="h-48 w-full object-contain"
       />
 
       {/* Card content */}

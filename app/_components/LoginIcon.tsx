@@ -17,5 +17,6 @@ export async function LoginIcon() {
         />
       </DesktopLink>
     );
+
   return <DesktopLink href={"/login"}>Login</DesktopLink>;
 }
