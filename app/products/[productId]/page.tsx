@@ -87,7 +87,7 @@ export default async function Page({
           <div className="mt-4 border-t pt-4">
             <p className="text-base font-medium">
               📞 Telefone do vendedor:{" "}
-              <span className="font-semibold">{product.phone}</span>
+              <span className="font-semibold">{product.tel}</span>
             </p>
           </div>
         </div>
