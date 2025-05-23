@@ -1,5 +1,3 @@
-export const dynamic = "force-static";
-
 const faqs = [
   {
     question: "Preciso criar uma conta para anunciar um produto?",

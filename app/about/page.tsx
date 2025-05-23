@@ -1,9 +1,7 @@
-export const dynamic = "force-static";
-
 function Page() {
   return (
     <main className="mx-auto max-w-4xl space-y-10 p-6">
-      {/* Seção de Introdução */}
+      {/* Introduction */}
       <section>
         <h1 className="mb-4 text-4xl font-bold text-gray-800">Sobre a Kaya</h1>
         <p className="text-lg text-gray-600">
@@ -13,7 +11,7 @@ function Page() {
         </p>
       </section>
 
-      {/* Seção Economia Circular */}
+      {/* Circular economy */}
       <section>
         <h2 className="mb-3 text-3xl font-semibold text-gray-700">
           Economia Circular
@@ -27,7 +25,7 @@ function Page() {
         </p>
       </section>
 
-      {/* Seção Nossa Proposta */}
+      {/* Our purpose */}
       <section>
         <h2 className="mb-3 text-3xl font-semibold text-gray-700">
           Nossa Proposta
@@ -41,7 +39,7 @@ function Page() {
         </p>
       </section>
 
-      {/* Seção Sustentabilidade */}
+      {/* Sustentability */}
       <section>
         <h2 className="mb-3 text-3xl font-semibold text-gray-700">
           Sustentabilidade
