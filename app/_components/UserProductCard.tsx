@@ -1,13 +1,19 @@
 "use client";
 
-import Image from "next/image";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { ProductType } from "../schemas/productSchema";
+import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { MouseEvent } from "react";
 import { deleteProductAction } from "../_lib/actions";
+import { ProductType } from "../schemas/productSchema";
 
 export default function UserProductCard({ product }: { product: ProductType }) {
-  async function handleClick() {
+  const router = useRouter();
+
+  // Function to delete product
+  async function handleDelete(e: MouseEvent) {
+    e.stopPropagation();
     const productId = product.id;
     if (!productId) {
       console.error("Product not found");
@@ -16,6 +22,10 @@ export default function UserProductCard({ product }: { product: ProductType }) {
 
     if (confirm("O seu anúncio sera excluido"))
       await deleteProductAction(productId);
+  }
+
+  function handleCardClick() {
+    router.push(`/products/${product.id}`);
   }
 
   if (!product.imageUrl) {
@@ -27,7 +37,10 @@ export default function UserProductCard({ product }: { product: ProductType }) {
   }
 
   return (
-    <div className="flex items-center gap-6 rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
+    <div
+      onClick={handleCardClick}
+      className="flex cursor-pointer items-center gap-6 rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md"
+    >
       {/* Product image */}
       <div className="h-32 w-32 rounded-lg">
         <Image
@@ -35,7 +48,7 @@ export default function UserProductCard({ product }: { product: ProductType }) {
           alt={product.title}
           width={128}
           height={128}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain"
         />
       </div>
 
@@ -51,11 +64,14 @@ export default function UserProductCard({ product }: { product: ProductType }) {
 
       {/* Actions */}
       <div className="flex flex-col items-center gap-2">
-        <Link href={`/account/edit/${product.id}`}>
+        <Link
+          onClick={(e) => e.stopPropagation()}
+          href={`/account/edit/${product.id}`}
+        >
           <PencilSquareIcon className="h-6 w-6 cursor-pointer text-blue-600 hover:text-blue-800" />
         </Link>
 
-        <button onClick={handleClick}>
+        <button onClick={handleDelete}>
           <TrashIcon className="h-6 w-6 cursor-pointer text-red-600 hover:text-red-800" />
         </button>
       </div>
