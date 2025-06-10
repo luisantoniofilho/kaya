@@ -1,8 +1,7 @@
 "use client";
 
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { MouseEvent } from "react";
 import { deleteProductAction } from "../_lib/actions";
@@ -64,12 +63,14 @@ export default function UserProductCard({ product }: { product: ProductType }) {
 
       {/* Actions */}
       <div className="flex flex-col items-center gap-2">
+        {/* 
+        Feature to edit products
         <Link
           onClick={(e) => e.stopPropagation()}
           href={`/account/edit/${product.id}`}
         >
           <PencilSquareIcon className="h-6 w-6 cursor-pointer text-blue-600 hover:text-blue-800" />
-        </Link>
+        </Link> */}
 
         <button onClick={handleDelete}>
           <TrashIcon className="h-6 w-6 cursor-pointer text-red-600 hover:text-red-800" />
