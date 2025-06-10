@@ -32,7 +32,7 @@ export default async function Page() {
               Você ja está logado!
             </h2>
             <p className="mb-6 text-center text-base text-gray-600 md:text-lg">
-              Sair da conta
+              Deseja sair da sua conta?
             </p>
             <SignoutButton />
           </>
