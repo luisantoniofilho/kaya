@@ -20,10 +20,6 @@ function Page() {
         </h2>
         <Top3Products />
       </section>
-
-      <section>
-        <h2>Who we are?</h2>
-      </section>
     </main>
   );
 }
