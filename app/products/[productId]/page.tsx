@@ -1,8 +1,6 @@
 import { getProductAction, getProductsAction } from "@/app/_lib/actions";
 import Image from "next/image";
 
-export const revalidate = 60;
-
 export async function generateStaticParams() {
   const products = await getProductsAction();
   if (!Array.isArray(products)) return [];
