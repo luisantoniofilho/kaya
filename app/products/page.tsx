@@ -1,8 +1,6 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import ProductList from "../_components/ProductList";
 
-export const revalidate = 60;
-
 export default async function Page() {
   return (
     <main className="mx-auto max-w-6xl p-6">
