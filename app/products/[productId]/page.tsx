@@ -1,14 +1,6 @@
 import { getProductAction, getProductsAction } from "@/app/_lib/actions";
 import Image from "next/image";
 
-export async function generateStaticParams() {
-  const products = await getProductsAction();
-  if (!Array.isArray(products)) return [];
-  return products.map((product) => ({
-    productId: product.id?.toString(),
-  }));
-}
-
 export default async function Page({
   params,
 }: {
