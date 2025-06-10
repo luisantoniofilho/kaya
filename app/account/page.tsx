@@ -18,9 +18,6 @@ export default async function Page() {
         >
           Meus Anúncios
         </Link>
-        <Link href="/account/sails" className="text-blue-600 hover:underline">
-          Minhas Vendas
-        </Link>
       </nav>
       <Link className="text-cyan-600" href={"/login"}>
         Deseja sair da sua conta? Clique aqui
