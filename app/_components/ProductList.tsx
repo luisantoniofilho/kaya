@@ -2,7 +2,13 @@ import { getProductsAction } from "../_lib/actions";
 import { ProductType } from "../schemas/productSchema";
 import ProductCard from "./ProductCard";
 
-export default async function ProductList({ limit }: { limit?: number }) {
+export default async function ProductList({
+  query = "",
+  limit,
+}: {
+  query?: string;
+  limit?: number;
+}) {
   const { data: products, error } = await getProductsAction();
 
   if (!Array.isArray(products)) {
@@ -16,8 +22,12 @@ export default async function ProductList({ limit }: { limit?: number }) {
     );
   }
 
-  const slice = limit ?? products.length;
-  const displayedProducts = products.slice(0, slice);
+  const normalizedQuery = query.toLowerCase().trim();
+  const filtered = products.filter((product: ProductType) =>
+    product.title.toLowerCase().includes(normalizedQuery),
+  );
+
+  const displayedProducts = filtered.slice(0, limit ?? filtered.length);
 
   if (displayedProducts.length === 0) {
     return (
@@ -29,7 +39,7 @@ export default async function ProductList({ limit }: { limit?: number }) {
 
   return (
     <>
-      {products.slice(0, slice).map((product: ProductType) => (
+      {displayedProducts.map((product: ProductType) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </>

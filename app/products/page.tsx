@@ -1,5 +1,7 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+// app/products/page.tsx
+
 import ProductList from "../_components/ProductList";
+import SearchBar from "../_components/SearchBar";
 
 export default async function Page({
   searchParams,
@@ -14,7 +16,7 @@ export default async function Page({
       <h1 className="mb-6 text-4xl font-bold text-gray-800">Produtos</h1>
       <SearchBar defaultQuery={q} />
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <ProductList />
+        <ProductList query={q} />
       </div>
     </main>
   );
