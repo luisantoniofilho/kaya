@@ -1,5 +1,3 @@
-// app/products/page.tsx
-
 import ProductList from "../_components/ProductList";
 import SearchBar from "../_components/SearchBar";
 
