@@ -4,11 +4,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
-interface SearchBarProps {
+export default function SearchBar({
+  defaultQuery = "",
+}: {
   defaultQuery?: string;
-}
-
-export default function SearchBar({ defaultQuery = "" }: SearchBarProps) {
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(defaultQuery);
