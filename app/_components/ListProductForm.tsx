@@ -81,8 +81,8 @@ export default function ListProductForm() {
 
       {/* Phone */}
       <Input
-        type="tel"
-        name="tel"
+        type="text"
+        name="contactNumber"
         minLength={11}
         maxLength={11}
         placeholder="11912345678"
