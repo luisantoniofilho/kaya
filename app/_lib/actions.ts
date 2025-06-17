@@ -1,6 +1,5 @@
 "use server";
 
-import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
 import { z } from "zod/v4";
 import { getAuthenticatedUserEmail } from "../_helpers/getAuthenticatedEmail";
@@ -14,62 +13,70 @@ import {
   getProducts,
   getUser,
   getUserProducts,
-} from "./mongodb/mongodbActions";
+} from "./neondb/neonActions";
+
+/* //////////////////
+// AUTH ACTIONS
+*/ //////////////////
 
 export async function signInAction() {
+  // Initiates sign in with Google and redirects to products
   await signIn("google", { redirectTo: "/products" });
 }
 
 export async function signOutAction() {
+  // Signs out and redirects to home
   await signOut({ redirectTo: "/" });
 }
 
+/* //////////////////
+// PRODUCT ACTIONS
+*/ //////////////////
+
 export async function addProductAction(formData: FormData) {
+  // Converts form data to object and removes internal fields
   const data = Object.fromEntries(
     Array.from(formData.entries()).filter(
-      // Remove intern fields
       ([key]) => !key.startsWith("$ACTION_"),
     ),
   );
 
+  // Gets the authenticated user's ID
   const userEmail = await getAuthenticatedUserEmail();
-
   const user = await getUser(userEmail);
-  const userId = user?._id.toHexString();
+  const userId = user?.id;
+
   if (!userId) return { error: "User ID not found", data: null };
 
+  // Appends userId to product data
   const productWithUserId = { ...data, userId };
 
-  // Parse the object into the schema
+  // Validates the product data
   const result = productSchema.safeParse(productWithUserId);
-
   if (!result.success) {
     console.error(result.error);
-    return { error: z.prettifyError(result.error!), data: null };
+    return { error: z.prettifyError(result.error), data: null };
   }
 
-  // Split the image and the product
+  // Extracts image file and remaining fields
   const { image, ...productParsed } = result.data;
 
-  // Upload the image and take the url from vercel blob
+  // Uploads the image and sets image URL
   const { url: imageUrl } = await uploadImage(image as File);
   if (!imageUrl) return { error: "Erro ao fazer upload da imagem", data: null };
 
-  // Add the image URL from blob store
   productParsed.imageUrl = imageUrl;
 
+  // Stores the product in the database
   await addProduct(productParsed);
+
+  // Redirect to product list
   redirect("/products");
 }
 
-export async function getProductAction(productId: string) {
+export async function getProductAction(productId: number) {
   try {
-    if (!ObjectId.isValid(productId))
-      return { error: "Invalid product ID", data: null };
-
-    const objectId = new ObjectId(productId);
-    const product = await getProduct(objectId);
-
+    const product = await getProduct(productId);
     return { data: product, error: null };
   } catch (error) {
     console.error("Error fetching product: ", error);
@@ -80,16 +87,12 @@ export async function getProductAction(productId: string) {
 export async function getProductsAction() {
   try {
     const products = await getProducts();
-    const productsWithStringId = products.map(({ _id, ...rest }) => ({
-      id: _id.toString(),
-      ...rest,
-    }));
 
-    const result = z.array(productSchema).safeParse(productsWithStringId);
-
+    // Validates the structure of all products
+    const result = z.array(productSchema).safeParse(products);
     if (!result.success) {
       console.error(result.error);
-      return { error: z.prettifyError(result.error!), data: null };
+      return { error: z.prettifyError(result.error), data: null };
     }
 
     return { data: result.data, error: null };
@@ -101,32 +104,22 @@ export async function getProductsAction() {
 
 export async function getUserProductsAction() {
   try {
-    // Get the user email if it is authenticated
+    // Gets authenticated user's ID
     const userEmail = await getAuthenticatedUserEmail();
     const user = await getUser(userEmail);
-    if (!user?._id) return { error: "User not found", data: null };
+    if (!user?.id) return { error: "User not found", data: null };
 
-    // Array with user products
-    const userProducts = await getUserProducts(user._id.toString());
+    // Gets all products for this user
+    const userProducts = await getUserProducts(user.id);
 
-    // Change the _id to id and convert it to string
-    const userProductsWithStringId = userProducts.map(
-      ({ _id, ...otherProperties }) => ({
-        id: _id.toString(),
-        ...otherProperties,
-      }),
-    );
-
-    const result = z.array(productSchema).safeParse(userProductsWithStringId);
-
+    // Validates structure
+    const result = z.array(productSchema).safeParse(userProducts);
     if (!result.success) {
       console.error(result.error);
-      return { error: z.prettifyError(result.error!), data: null };
+      return { error: z.prettifyError(result.error), data: null };
     }
 
-    const data = result.data;
-
-    return { data };
+    return { data: result.data };
   } catch (error) {
     console.error("Error fetching user products: ", error);
     return {
@@ -136,7 +129,7 @@ export async function getUserProductsAction() {
   }
 }
 
-export async function deleteProductAction(productId: string) {
+export async function deleteProductAction(productId: number) {
   try {
     const userEmail = await getAuthenticatedUserEmail();
     const user = await getUser(userEmail);
@@ -144,16 +137,15 @@ export async function deleteProductAction(productId: string) {
     const { data: product } = await getProductAction(productId);
     if (!product) return { error: "Produto não encontrado" };
 
-    if (product.userId !== user?._id.toString())
-      return { error: "Você não está autorizado a deletar esse  produto" };
+    // Checks if the user is authorized to delete the product
+    if (product.userId !== user?.id)
+      return { error: "Você não está autorizado a deletar esse produto" };
 
+    // Deletes associated image and product entry
     await deleteImage(product.imageUrl);
+    await deleteProduct(productId);
 
-    const objProductIt = ObjectId.createFromHexString(productId);
-    await deleteProduct(objProductIt);
-
-    // Return true if delete is successful
-    return { data: true, error: null };
+    return { success: true };
   } catch (error) {
     console.error(error);
     return { error: "Erro desconhecido" };
