@@ -4,7 +4,7 @@ import Image from "next/image";
 export default async function Page({
   params,
 }: {
-  params: Promise<{ productId: string }>;
+  params: Promise<{ productId: number }>;
 }) {
   const { productId } = await params;
   const { data: product, error } = await getProductAction(productId);
@@ -65,7 +65,7 @@ export default async function Page({
           <div>
             <span className="text-sm font-medium text-gray-500">Preço</span>
             <p className="text-3xl font-bold text-blue-600">
-              R$ {product.price.toFixed(2)}
+              R$ {product.price}
             </p>
           </div>
 
@@ -77,7 +77,7 @@ export default async function Page({
           <div className="mt-4 border-t pt-4">
             <p className="text-base font-medium">
               📞 Telefone do vendedor:{" "}
-              <span className="font-semibold">{product.tel}</span>
+              <span className="font-semibold">{product.contactNumber}</span>
             </p>
           </div>
         </div>
