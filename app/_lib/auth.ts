@@ -1,12 +1,9 @@
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import NextAuth, { User } from "next-auth";
 import Google from "next-auth/providers/google";
-import { addUser, getUser } from "./mongodb/mongodbActions";
-import client from "./mongodb/mongodbConfig";
+import { addUser, getUser } from "./neondb/neonActions";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   trustHost: true,
-  adapter: MongoDBAdapter(client),
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
