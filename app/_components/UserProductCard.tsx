@@ -13,14 +13,20 @@ export default function UserProductCard({ product }: { product: ProductType }) {
   // Function to delete product
   async function handleDelete(e: MouseEvent) {
     e.stopPropagation();
-    const productId = product.id;
-    if (!productId) {
+
+    if (!product.id) {
       console.error("Product not found");
       return;
     }
 
-    if (confirm("O seu anúncio sera excluido"))
-      await deleteProductAction(productId);
+    if (confirm("O seu anúncio sera excluido")) {
+      const res = await deleteProductAction(product.id);
+      if (res.success) {
+        location.reload();
+      } else {
+        alert("Erro ao excluir o produto");
+      }
+    }
   }
 
   function handleCardClick() {
