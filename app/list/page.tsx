@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
-import ListProductForm from "../_components/ListProductForm";
 import { auth } from "../_lib/auth";
+import AddOrEditProductForm from "../_components/AddOrEditProductForm";
 
 export default async function Page() {
   const session = await auth();
@@ -12,7 +12,7 @@ export default async function Page() {
         Anunciar Produto
       </h1>
 
-      <ListProductForm />
+      <AddOrEditProductForm />
     </main>
   );
 }
