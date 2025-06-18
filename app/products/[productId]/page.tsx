@@ -9,7 +9,7 @@ export default async function Page({
   const { productId } = await params;
   const { data: product, error } = await getProductAction(productId);
 
-  if (error) {
+  if (error || !product?.imageUrl) {
     console.error(error);
     return (
       <main className="flex min-h-screen items-center justify-center bg-gray-100 px-6 py-20">
