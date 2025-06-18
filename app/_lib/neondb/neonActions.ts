@@ -93,6 +93,19 @@ export async function getUserProducts(userId: number) {
   return userProducts;
 }
 
+export async function updateProduct(product: ProductType) {
+  await sql`
+    UPDATE products
+    SET
+      title = ${product.title},
+      description = ${product.description},
+      category = ${product.category},
+      price = ${product.price},
+      contact_number = ${product.contactNumber}
+    WHERE id = ${product.id}
+  `;
+}
+
 export async function deleteProduct(productId: number) {
   await sql`
     DELETE FROM products
