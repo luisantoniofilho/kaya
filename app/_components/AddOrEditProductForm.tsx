@@ -2,28 +2,36 @@
 
 import { useTransition } from "react";
 import toast from "react-hot-toast";
-import { addProductAction } from "../_lib/actions";
+import { addProductAction, updateProductAction } from "../_lib/actions";
 import { PRODUCT_CATEGORIES } from "../constants/productCategories";
 import Button from "./Button";
 import Input from "./Input";
 import Select from "./Select";
 import SpinnerMini from "./SpinnerMini";
+import { ProductType } from "../schemas/productSchema";
+import { redirect } from "next/navigation";
 
-export default function ListProductForm() {
+export default function AddOrEditProductForm({
+  product = null,
+}: {
+  product?: ProductType | null;
+}) {
   const [isPending, startTransition] = useTransition();
 
   function handleSubmit(formData: FormData) {
     startTransition(async () => {
-      // String error
-      const { error } = await addProductAction(formData);
+      const { error } = product
+        ? await updateProductAction(formData)
+        : await addProductAction(formData);
 
-      /* Error example
+      // String error
+
+      /* Error example from Zod
       ✖ Título muito curto
       → at title */
 
       if (error) {
         console.error(error);
-
         error
           // Split the error string into lines
           .split("\n")
@@ -38,13 +46,26 @@ export default function ListProductForm() {
 
         return;
       }
+
+      toast.success("Produto editado com sucesso!");
+      redirect("/account/listings");
     });
   }
 
   return (
     <form action={handleSubmit} className="space-y-4">
       {/* Title input */}
-      <Input type="text" name="title" placeholder="Ex: Mesa de Escritório">
+
+      {product?.id && (
+        <input type="hidden" name="id" value={Number(product.id)} />
+      )}
+
+      <Input
+        type="text"
+        name="title"
+        placeholder="Ex: Mesa de Escritório"
+        defaultValue={product?.title || ""}
+      >
         Título
       </Input>
 
@@ -53,6 +74,7 @@ export default function ListProductForm() {
         type="textarea"
         name="description"
         placeholder="Detalhes sobre o produto"
+        defaultValue={product?.description || ""}
       >
         Descrição
       </Input>
@@ -62,10 +84,16 @@ export default function ListProductForm() {
         label="Categoria"
         name="category"
         options={PRODUCT_CATEGORIES.slice()}
+        defaultValue={product?.category || ""}
       />
 
       {/* Price input */}
-      <Input type="number" name="price" placeholder="Ex: 250">
+      <Input
+        type="number"
+        name="price"
+        placeholder="Ex: 250"
+        defaultValue={product?.price}
+      >
         Preço (R$)
       </Input>
 
@@ -75,6 +103,7 @@ export default function ListProductForm() {
         accept=".png, .jpg, .jpeg, .webp"
         name="image"
         optionalClassName="cursor-pointer"
+        disabled={!!product?.imageUrl}
       >
         Imagem
       </Input>
@@ -86,12 +115,19 @@ export default function ListProductForm() {
         minLength={11}
         maxLength={11}
         placeholder="11912345678"
+        defaultValue={product?.contactNumber}
       >
         Telefone para contato com DDD (insira somente números)
       </Input>
 
       <Button type="submit" disable={isPending}>
-        {isPending ? <SpinnerMini /> : "Anunciar produto"}
+        {isPending ? (
+          <SpinnerMini />
+        ) : product ? (
+          "Confirmar alterações"
+        ) : (
+          "Anunciar produto"
+        )}
       </Button>
     </form>
   );
