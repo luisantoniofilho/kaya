@@ -77,7 +77,16 @@ export async function addProductAction(formData: FormData) {
 export async function getProductAction(productId: number) {
   try {
     const product = await getProduct(productId);
-    return { data: product, error: null };
+
+    const result = productSchema.safeParse(product);
+    if (!result.success) {
+      console.error(result.error);
+      return { error: z.prettifyError(result.error), data: null };
+    }
+
+    const { data: productParsed } = result;
+
+    return { data: productParsed, error: null };
   } catch (error) {
     console.error("Error fetching product: ", error);
     return { error: "Erro ao buscar produto", data: null };
