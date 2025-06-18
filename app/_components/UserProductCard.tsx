@@ -1,11 +1,12 @@
 "use client";
 
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { MouseEvent } from "react";
 import { deleteProductAction } from "../_lib/actions";
 import { ProductType } from "../schemas/productSchema";
+import Link from "next/link";
 
 export default function UserProductCard({ product }: { product: ProductType }) {
   const router = useRouter();
@@ -20,10 +21,11 @@ export default function UserProductCard({ product }: { product: ProductType }) {
     }
 
     if (confirm("O seu anúncio sera excluido")) {
-      const res = await deleteProductAction(product.id);
-      if (res.success) {
+      const { data: success, error } = await deleteProductAction(product.id);
+      if (success) {
         location.reload();
       } else {
+        console.error(error);
         alert("Erro ao excluir o produto");
       }
     }
@@ -69,15 +71,15 @@ export default function UserProductCard({ product }: { product: ProductType }) {
 
       {/* Actions */}
       <div className="flex flex-col items-center gap-2">
-        {/* 
-        Feature to edit products
+        {/* Edit product */}
         <Link
           onClick={(e) => e.stopPropagation()}
-          href={`/account/edit/${product.id}`}
+          href={`/account/listings/edit/${product.id}`}
         >
           <PencilSquareIcon className="h-6 w-6 cursor-pointer text-blue-600 hover:text-blue-800" />
-        </Link> */}
+        </Link>
 
+        {/* Delete product */}
         <button onClick={handleDelete}>
           <TrashIcon className="h-6 w-6 cursor-pointer text-red-600 hover:text-red-800" />
         </button>
