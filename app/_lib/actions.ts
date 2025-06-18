@@ -13,6 +13,7 @@ import {
   getProducts,
   getUser,
   getUserProducts,
+  updateProduct,
 } from "./neondb/neonActions";
 
 /* //////////////////
@@ -138,6 +139,53 @@ export async function getUserProductsAction() {
   }
 }
 
+export async function updateProductAction(formData: FormData) {
+  try {
+    // Converts form data to object and removes internal fields
+    const rawProduct = Object.fromEntries(
+      Array.from(formData.entries()).filter(
+        ([key]) => !key.startsWith("$ACTION_"),
+      ),
+    );
+
+    // Validates the product data
+    const result = productSchema.safeParse(rawProduct);
+    if (!result.success) {
+      console.error(result.error);
+      return { error: z.prettifyError(result.error), data: null };
+    }
+
+    const { data: editedProduct } = result;
+
+    if (!editedProduct.id) {
+      return {
+        error: "ID do produto é obrigatório para atualização",
+        data: null,
+      };
+    }
+
+    // Gets authenticated user's credentials
+    const userEmail = await getAuthenticatedUserEmail();
+    const user = await getUser(userEmail);
+
+    const { data: product } = await getProductAction(editedProduct.id);
+    const userId = product?.userId;
+
+    if (userId !== user?.id) {
+      return {
+        error: "Você não está autorizado a editar esse produto",
+        data: null,
+      };
+    }
+
+    await updateProduct(editedProduct);
+    return { data: true };
+  } catch (error) {
+    console.error("Erro ao atualizar produto:", error);
+    return { error: "Erro ao atualizar produto", data: null };
+  }
+}
+
 export async function deleteProductAction(productId: number) {
   try {
     const userEmail = await getAuthenticatedUserEmail();
@@ -150,11 +198,14 @@ export async function deleteProductAction(productId: number) {
     if (product.userId !== user?.id)
       return { error: "Você não está autorizado a deletar esse produto" };
 
+    if (!product.imageUrl)
+      return { error: "Ocorreu um erro ao deletar produto!" };
+
     // Deletes associated image and product entry
     await deleteImage(product.imageUrl);
     await deleteProduct(productId);
 
-    return { success: true };
+    return { data: true };
   } catch (error) {
     console.error(error);
     return { error: "Erro desconhecido" };
