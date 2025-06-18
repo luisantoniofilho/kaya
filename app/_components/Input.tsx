@@ -11,6 +11,8 @@ type InputProps = {
   size?: number;
   minLength?: number;
   maxLength?: number;
+  defaultValue?: string | number;
+  disabled?: true | false;
   children: ReactNode;
 };
 
@@ -25,6 +27,8 @@ export default function Input({
   maxLength,
   max,
   size,
+  defaultValue,
+  disabled,
   children,
 }: InputProps) {
   return (
@@ -36,6 +40,8 @@ export default function Input({
           required
           placeholder={placeholder}
           name={name}
+          defaultValue={defaultValue}
+          disabled={disabled}
           className={`w-full rounded-md border border-gray-300 p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none ${optionalClassName}`}
         />
       ) : (
@@ -50,6 +56,8 @@ export default function Input({
           size={size}
           minLength={minLength}
           maxLength={maxLength}
+          defaultValue={defaultValue}
+          disabled={disabled}
           className={`w-full rounded-md border border-gray-300 p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none ${optionalClassName}`}
         />
       )}
