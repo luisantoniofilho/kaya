@@ -31,7 +31,8 @@ export const productSchema = z.object({
           ? "Esse campo é obrigatório"
           : "Digite um número válido",
     })
-    .positive("O preço não pode ser negativo"),
+    .positive("O preço não pode ser negativo")
+    .max(999999, { error: "Digite um preço válido" }),
 
   image: z
     .instanceof(File)
