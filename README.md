@@ -6,10 +6,10 @@ A modern e-commerce platform with dual authentication for consumers (CPF) and bu
 
 Here are the next improvements planned for the application:
 
-🔁 Sails and listings for each user
+🔁 Don't clean fields on form if there is an error
+🔁 Check the input validations
+🔁 Display sails for each user
 🔁 Authentication system for CNPJ users
-🔁 Update a product
-🔁 Delete a product
 
 ## Tech Stack
 
