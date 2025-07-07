@@ -11,10 +11,12 @@ export default async function Page() {
 
   return (
     <main className="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-md">
+      {/* Page title */}
       <h1 className="mb-6 text-3xl font-bold text-gray-800">
         Anunciar Produto
       </h1>
 
+      {/* Product form component */}
       <AddOrEditProductForm />
     </main>
   );

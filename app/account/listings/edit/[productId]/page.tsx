@@ -10,26 +10,61 @@ export default async function Page({
   // Check if the user is authenticated
   getUserSession();
 
+  // Extract productId from params
   const { productId } = await params;
 
-  console.log(productId);
+  // Handle missing productId
   if (!productId) {
     return (
-      <div>
-        <h1>Esse produto não foi encontrado</h1>
-      </div>
+      <main className="min-h-screen bg-gray-50 px-4 py-10 md:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <h1 className="mb-4 text-2xl font-bold text-red-700">
+            Produto não encontrado
+          </h1>
+          <p className="text-gray-600">
+            O ID do produto não foi fornecido ou é inválido.
+          </p>
+        </div>
+      </main>
     );
   }
 
-  const { data: product } = await getProductAction(productId);
+  // Fetch product data
+  const { data: product, error } = await getProductAction(productId);
 
+  // Handle error or missing product data
+  if (!product || error) {
+    return (
+      <main className="min-h-screen bg-gray-50 px-4 py-10 md:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <h1 className="mb-4 text-2xl font-bold text-red-700">
+            Produto não encontrado
+          </h1>
+          <p className="text-gray-600">
+            Não foi possível carregar as informações do produto. Verifique o ID
+            ou tente novamente mais tarde.
+          </p>
+        </div>
+      </main>
+    );
+  }
+
+  // Render the edit product form with fetched data
   return (
-    <main className="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-md">
-      <h1 className="mb-6 text-center text-3xl font-bold text-gray-800">
-        Editar Produto
-      </h1>
+    <main className="min-h-screen bg-gray-50 px-4 py-10 md:px-8">
+      <div
+        className="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-md"
+        aria-labelledby="edit-product-title"
+      >
+        <h1
+          id="edit-product-title"
+          className="mb-6 text-center text-3xl font-bold text-gray-800"
+        >
+          Editar Produto
+        </h1>
 
-      <AddOrEditProductForm product={product} />
+        <AddOrEditProductForm product={product} />
+      </div>
     </main>
   );
 }

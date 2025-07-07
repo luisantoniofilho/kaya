@@ -10,17 +10,17 @@ export default function Page() {
   ];
 
   return (
-    <div className="mx-auto max-w-2xl p-6">
+    <main className="mx-auto max-w-2xl p-6">
       <h1 className="mb-4 text-2xl font-bold">Minhas Vendas</h1>
       <div className="space-y-4">
         {sales.map((sale) => (
-          <div key={sale.id} className="rounded-lg border p-4 shadow-sm">
+          <article key={sale.id} className="rounded-lg border p-4 shadow-sm">
             <h2 className="text-lg font-semibold">{sale.product}</h2>
             <p className="text-gray-600">R$ {sale.price}</p>
             <span className="text-sm text-gray-500">Status: {sale.status}</span>
-          </div>
+          </article>
         ))}
       </div>
-    </div>
+    </main>
   );
 }

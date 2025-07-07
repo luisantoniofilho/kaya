@@ -1,4 +1,5 @@
 const faqs = [
+  // List of FAQ questions and answers
   {
     question: "Preciso criar uma conta para anunciar um produto?",
     answer:
@@ -37,20 +38,26 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <div className="mx-auto max-w-3xl p-6">
+    <main className="mx-auto max-w-3xl p-6">
+      {/* Page heading */}
       <h1 className="mb-6 text-3xl font-bold text-gray-800">
         Perguntas Frequentes
       </h1>
-      <div className="space-y-4">
+
+      {/* FAQ list */}
+      <section aria-label="Frequently asked questions" className="space-y-4">
         {faqs.map((faq, index) => (
           <div key={index} className="border-b pb-4">
-            <div className="flex w-full items-center justify-between py-3 text-left text-lg font-medium text-gray-800">
+            {/* Question */}
+            <h2 className="flex w-full items-center justify-between py-3 text-left text-lg font-medium text-gray-800">
               {faq.question}
-            </div>
+            </h2>
+
+            {/* Answer */}
             <p className="mt-2 text-gray-600">{faq.answer}</p>
           </div>
         ))}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

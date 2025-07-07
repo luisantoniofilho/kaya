@@ -10,20 +10,38 @@ export default async function Page() {
   await getUserSession();
 
   return (
-    <div className="mx-auto max-w-lg p-6">
-      <h1 className="mb-4 text-2xl font-bold">Minha Conta</h1>
+    <main className="mx-auto max-w-lg p-6">
+      {/* Page title */}
+      <h1 className="mb-6 text-3xl font-bold text-gray-800">Minha Conta</h1>
 
-      <nav className="flex space-x-4 border-b pb-2">
-        <Link
-          href="/account/listings"
-          className="text-blue-600 hover:underline"
-        >
-          Meus Anúncios
-        </Link>
+      {/* Account navigation */}
+      <nav aria-label="Navegação da conta" className="mb-6">
+        <ul className="flex space-x-3 border-b pb-2">
+          <li>
+            <Link
+              href="/account/listings"
+              className="inline-block rounded-md px-4 py-2 text-sm font-medium text-blue-700 hover:bg-blue-100 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            >
+              Meus Anúncios
+            </Link>
+          </li>
+        </ul>
       </nav>
-      <Link className="text-cyan-600" href={"/login"}>
-        Deseja sair da sua conta? Clique aqui
-      </Link>
-    </div>
+
+      {/* Sign out section */}
+      <section aria-label="Sair da conta" className="mt-8">
+        <div className="rounded-md bg-red-50 p-4">
+          <p className="text-sm text-red-700">
+            Deseja sair da sua conta?{" "}
+            <Link
+              href="/login"
+              className="font-medium text-red-600 underline hover:text-red-800 focus:ring-2 focus:ring-red-500 focus:outline-none"
+            >
+              Clique aqui para sair
+            </Link>
+          </p>
+        </div>
+      </section>
+    </main>
   );
 }
