@@ -1,6 +1,10 @@
 import ProductList from "../_components/ProductList";
 import SearchBar from "../_components/SearchBar";
 
+export const metadata = {
+  title: "Produtos",
+};
+
 export default async function Page({
   searchParams,
 }: {

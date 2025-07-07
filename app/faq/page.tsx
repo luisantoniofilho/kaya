@@ -31,6 +31,10 @@ const faqs = [
   },
 ];
 
+export const metadata = {
+  title: "Perguntas Frequentes",
+};
+
 export default function Page() {
   return (
     <div className="mx-auto max-w-3xl p-6">

@@ -3,6 +3,10 @@ import { getUserProductsAction } from "@/app/_lib/actions";
 import { auth } from "@/app/_lib/auth";
 import { redirect } from "next/navigation";
 
+export const metadata = {
+  title: "Meus Anúncios",
+};
+
 export default async function Page() {
   const session = await auth();
   if (!session) redirect("/login");

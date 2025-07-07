@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Sobre a Kaya",
+};
+
 function Page() {
   return (
     <main className="mx-auto max-w-4xl space-y-10 p-6">

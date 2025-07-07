@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Sails",
+};
+
 export default function Page() {
   const sales = [
     { id: 1, product: "Notebook Dell", price: 3500, status: "Vendido" },

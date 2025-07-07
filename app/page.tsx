@@ -1,5 +1,9 @@
 import Top3Products from "./_components/Top3Products";
 
+export const metadata = {
+  title: "Página Inicial",
+};
+
 function Page() {
   return (
     <main className="mx-auto max-w-5xl p-6">

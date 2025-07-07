@@ -2,6 +2,10 @@ import { redirect } from "next/navigation";
 import { auth } from "../_lib/auth";
 import AddOrEditProductForm from "../_components/AddOrEditProductForm";
 
+export const metadata = {
+  title: "Anunciar Produto",
+};
+
 export default async function Page() {
   const session = await auth();
   if (!session) redirect("/login");
