@@ -17,8 +17,11 @@ export default function Select({
 }: SelectProps) {
   return (
     <div>
-      <label className="block font-medium text-gray-700">{label}</label>
+      <label htmlFor={name} className="block font-medium text-gray-700">
+        {label}
+      </label>
       <select
+        id={name}
         name={name}
         className="mt-1 w-full rounded-lg border border-gray-300 p-2 outline-none focus:ring-2 focus:ring-blue-500"
         defaultValue={defaultValue ?? ""}

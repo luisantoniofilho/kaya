@@ -6,7 +6,7 @@ export default function ProductCard({ product }: { product: ProductType }) {
   if (!product.imageUrl) throw new Error("Imagem sem URL");
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-lg transition hover:shadow-md">
+    <article className="flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-lg transition hover:shadow-md">
       {/* product image */}
       <Image
         src={product.imageUrl}
@@ -29,6 +29,6 @@ export default function ProductCard({ product }: { product: ProductType }) {
 
         <LinkButton href={`/products/${product.id}`}>Ver detalhes</LinkButton>
       </div>
-    </div>
+    </article>
   );
 }

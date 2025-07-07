@@ -52,7 +52,7 @@ export default async function Page({
   // Render the edit product form with fetched data
   return (
     <main className="min-h-screen bg-gray-50 px-4 py-10 md:px-8">
-      <div
+      <article
         className="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-md"
         aria-labelledby="edit-product-title"
       >
@@ -64,7 +64,7 @@ export default async function Page({
         </h1>
 
         <AddOrEditProductForm product={product} />
-      </div>
+      </article>
     </main>
   );
 }

@@ -33,11 +33,14 @@ export default function Input({
 }: InputProps) {
   return (
     <div>
-      <label className="block font-medium text-gray-700">{children}</label>
+      <label htmlFor={name} className="block font-medium text-gray-700">
+        {children}
+      </label>
 
       {type === "textarea" ? (
         <textarea
           required
+          id={name}
           placeholder={placeholder}
           name={name}
           defaultValue={defaultValue}
@@ -47,6 +50,7 @@ export default function Input({
       ) : (
         <input
           required
+          id={name}
           type={type}
           placeholder={placeholder}
           name={name}
