@@ -4,9 +4,9 @@ import Image from "next/image";
 export default async function Page({
   params,
 }: {
-  params: { productId: number };
+  params: Promise<{ productId: number }>;
 }) {
-  const productId = Number(params.productId);
+  const { productId } = await params;
   // Fetch product data by ID
   const { data: product, error } = await getProductAction(productId);
 
