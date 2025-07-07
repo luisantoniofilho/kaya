@@ -14,12 +14,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${baseURL}/about`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
     },
     {
       url: `${baseURL}/faq`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
     },
     {
       url: `${baseURL}/products`,
