@@ -1,14 +1,13 @@
-import { redirect } from "next/navigation";
-import { auth } from "../_lib/auth";
 import AddOrEditProductForm from "../_components/AddOrEditProductForm";
+import getUserSession from "../_helpers/getUserSession";
 
 export const metadata = {
   title: "Anunciar Produto",
 };
 
 export default async function Page() {
-  const session = await auth();
-  if (!session) redirect("/login");
+  // Check if the user is authenticated
+  await getUserSession();
 
   return (
     <main className="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-md">

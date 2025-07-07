@@ -1,11 +1,15 @@
 import AddOrEditProductForm from "@/app/_components/AddOrEditProductForm";
+import getUserSession from "@/app/_helpers/getUserSession";
 import { getProductAction } from "@/app/_lib/actions";
 
-export default async function page({
+export default async function Page({
   params,
 }: {
   params: Promise<{ productId: number }>;
 }) {
+  // Check if the user is authenticated
+  getUserSession();
+
   const { productId } = await params;
 
   console.log(productId);

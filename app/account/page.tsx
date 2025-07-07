@@ -1,15 +1,13 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { auth } from "../_lib/auth";
+import getUserSession from "../_helpers/getUserSession";
 
 export const metadata = {
   title: "Account",
 };
 
 export default async function Page() {
-  const session = await auth();
-
-  if (!session) redirect("/login");
+  // Check if the user is authenticated
+  await getUserSession();
 
   return (
     <div className="mx-auto max-w-lg p-6">
