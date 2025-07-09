@@ -1,38 +1,36 @@
 import AddOrEditProductForm from "@/app/_components/AddOrEditProductForm";
 import getUserSession from "@/app/_helpers/getUserSession";
-import { getProductAction } from "@/app/_lib/actions";
+import { getProductAction, getUserAction } from "@/app/_lib/actions";
 
 export default async function Page({
   params,
 }: {
   params: Promise<{ productId: number }>;
 }) {
-  // Check if the user is authenticated
-  getUserSession();
-
-  // Extract productId from params
   const { productId } = await params;
 
-  // Handle missing productId
-  if (!productId) {
+  // Get session
+  const session = await getUserSession();
+  if (!session.user?.email) {
     return (
-      <main className="min-h-screen bg-gray-50 px-4 py-10 md:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h1 className="mb-4 text-2xl font-bold text-red-700">
-            Produto não encontrado
-          </h1>
-          <p className="text-gray-600">
-            O ID do produto não foi fornecido ou é inválido.
-          </p>
-        </div>
+      <main className="flex min-h-screen items-center justify-center bg-gray-50 px-6">
+        <p className="text-xl text-red-600">Acesso não autorizado.</p>
       </main>
     );
   }
 
-  // Fetch product data
-  const { data: product, error } = await getProductAction(productId);
+  // Get user from DB
+  const { data: user } = await getUserAction(session.user.email);
+  if (!user) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-gray-50 px-6">
+        <p className="text-xl text-red-600">Usuário não encontrado.</p>
+      </main>
+    );
+  }
 
-  // Handle error or missing product data
+  // Get product
+  const { data: product, error } = await getProductAction(productId);
   if (!product || error) {
     return (
       <main className="min-h-screen bg-gray-50 px-4 py-10 md:px-8">
@@ -49,7 +47,18 @@ export default async function Page({
     );
   }
 
-  // Render the edit product form with fetched data
+  // Check if user is the owner of the product
+  if (user.id !== product.userId) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-gray-50 px-6">
+        <p className="text-xl text-red-600">
+          Você não tem permissão para editar este produto.
+        </p>
+      </main>
+    );
+  }
+
+  // Render form
   return (
     <main className="min-h-screen bg-gray-50 px-4 py-10 md:px-8">
       <article
