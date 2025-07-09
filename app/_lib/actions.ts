@@ -34,6 +34,8 @@ export async function signOutAction() {
 // PRODUCT ACTIONS
 */ //////////////////
 
+// CREATE
+
 export async function addProductAction(formData: FormData) {
   // Converts form data to object and removes internal fields
   const data = Object.fromEntries(
@@ -74,6 +76,8 @@ export async function addProductAction(formData: FormData) {
   // Redirect to product list
   redirect("/products");
 }
+
+// READ
 
 export async function getProductAction(productId: number) {
   try {
@@ -139,6 +143,8 @@ export async function getUserProductsAction() {
   }
 }
 
+// UPDATE
+
 export async function updateProductAction(formData: FormData) {
   try {
     // Converts form data to object and removes internal fields
@@ -169,9 +175,15 @@ export async function updateProductAction(formData: FormData) {
     const user = await getUser(userEmail);
 
     const { data: product } = await getProductAction(editedProduct.id);
-    const userId = product?.userId;
 
-    if (userId !== user?.id) {
+    if (!product) {
+      return {
+        error: "Produto não encontrado",
+        data: null,
+      };
+    }
+
+    if (product.userId !== user?.id) {
       return {
         error: "Você não está autorizado a editar esse produto",
         data: null,
@@ -185,6 +197,8 @@ export async function updateProductAction(formData: FormData) {
     return { error: "Erro ao atualizar produto", data: null };
   }
 }
+
+// DELETE
 
 export async function deleteProductAction(productId: number) {
   try {
@@ -209,5 +223,20 @@ export async function deleteProductAction(productId: number) {
   } catch (error) {
     console.error(error);
     return { error: "Erro desconhecido" };
+  }
+}
+
+/* //////////////////
+// USER ACTIONS
+*/ //////////////////
+
+export async function getUserAction(email: string) {
+  try {
+    const user = await getUser(email);
+    if (!user) return { error: "User not found", data: null };
+    return { data: user, error: null };
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    return { error: "Erro ao buscar usuário", data: null };
   }
 }
