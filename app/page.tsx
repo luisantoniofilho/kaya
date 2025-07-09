@@ -1,4 +1,4 @@
-import Top3Products from "./_components/Top3Products";
+import Top3Products from "./_components/product/Top3Products";
 
 export const metadata = {
   title: "Página Inicial",

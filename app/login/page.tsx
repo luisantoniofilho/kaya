@@ -1,5 +1,5 @@
-import SigninButton from "../_components/SigninButton";
-import SignoutButton from "../_components/SignoutButton";
+import SigninButton from "../_components/auth/SigninButton";
+import SignoutButton from "../_components/auth/SignoutButton";
 import { auth } from "../_lib/auth";
 
 export const metadata = {

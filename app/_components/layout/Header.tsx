@@ -1,7 +1,7 @@
 import Link from "next/link";
 import DesktopMenu from "./DesktopMenu";
+import { LoginIcon } from "../auth/LoginIcon";
 import MobileMenu from "./MobileMenu";
-import { LoginIcon } from "./LoginIcon";
 
 export function Header() {
   const links = [

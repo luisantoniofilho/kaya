@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { auth } from "../_lib/auth";
-import { DesktopLink } from "./DesktopLink";
+import { auth } from "../../_lib/auth";
+import { DesktopLink } from "../layout/DesktopLink";
 
 export async function LoginIcon() {
   const session = await auth();

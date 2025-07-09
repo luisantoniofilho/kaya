@@ -1,4 +1,4 @@
-import AddOrEditProductForm from "../_components/AddOrEditProductForm";
+import AddOrEditProductForm from "../_components/forms/AddOrEditProductForm";
 import getUserSession from "../_helpers/getUserSession";
 
 export const metadata = {

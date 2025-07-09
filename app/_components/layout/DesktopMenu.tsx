@@ -1,5 +1,5 @@
+import { LoginIcon } from "../auth/LoginIcon";
 import { DesktopLink } from "./DesktopLink";
-import { LoginIcon } from "./LoginIcon";
 
 export default function DesktopMenu({
   links,

@@ -1,9 +1,9 @@
+import { signOutAction } from "@/app/_lib/actions";
 import Image from "next/image";
-import { signInAction } from "../_lib/actions";
 
-export default function SigninButton() {
+export default function SignoutButton() {
   return (
-    <form action={signInAction}>
+    <form action={signOutAction}>
       <button className="flex cursor-pointer items-center justify-center gap-2 rounded-full bg-cyan-600 px-8 py-3 text-lg tracking-widest text-white transition-all hover:bg-cyan-700">
         <Image
           src="https://authjs.dev/img/providers/google.svg"
@@ -12,7 +12,7 @@ export default function SigninButton() {
           width={24}
           className="rounded-full border border-white bg-white"
         />
-        <span>Login ou registro com google</span>
+        <span>Sair</span>
       </button>
     </form>
   );

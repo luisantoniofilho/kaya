@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { ProductType } from "../schemas/productSchema";
-import LinkButton from "./LinkButton";
+import LinkButton from "../ui/LinkButton";
+import { ProductType } from "@/app/schemas/productSchema";
 
 export default function ProductCard({ product }: { product: ProductType }) {
   if (!product.imageUrl) throw new Error("Imagem sem URL");

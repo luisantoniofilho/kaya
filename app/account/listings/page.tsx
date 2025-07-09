@@ -1,4 +1,4 @@
-import UserProductCard from "@/app/_components/UserProductCard";
+import UserProductCard from "@/app/_components/product/UserProductCard";
 import getUserSession from "@/app/_helpers/getUserSession";
 import { getUserProductsAction } from "@/app/_lib/actions";
 

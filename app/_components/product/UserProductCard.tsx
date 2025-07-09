@@ -4,9 +4,10 @@ import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { MouseEvent } from "react";
-import { deleteProductAction } from "../_lib/actions";
-import { ProductType } from "../schemas/productSchema";
+
 import Link from "next/link";
+import { ProductType } from "@/app/schemas/productSchema";
+import { deleteProductAction } from "@/app/_lib/actions";
 
 export default function UserProductCard({ product }: { product: ProductType }) {
   const router = useRouter();

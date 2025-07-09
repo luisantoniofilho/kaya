@@ -1,5 +1,5 @@
-import ProductList from "../_components/ProductList";
-import SearchBar from "../_components/SearchBar";
+import ProductList from "../_components/product/ProductList";
+import SearchBar from "../_components/ui/SearchBar";
 
 export const metadata = {
   title: "Produtos",

@@ -2,13 +2,13 @@
 
 import { useTransition } from "react";
 import toast from "react-hot-toast";
-import { addProductAction, updateProductAction } from "../_lib/actions";
-import { PRODUCT_CATEGORIES } from "../constants/productCategories";
-import Button from "./Button";
-import Input from "./Input";
-import Select from "./Select";
-import SpinnerMini from "./SpinnerMini";
-import { ProductType } from "../schemas/productSchema";
+import { addProductAction, updateProductAction } from "../../_lib/actions";
+import { PRODUCT_CATEGORIES } from "../../constants/productCategories";
+import Button from "../ui/Button";
+import Input from "../ui/Input";
+import Select from "../ui/Select";
+import SpinnerMini from "../ui/SpinnerMini";
+import { ProductType } from "../../schemas/productSchema";
 import { redirect } from "next/navigation";
 
 export default function AddOrEditProductForm({

@@ -1,8 +1,8 @@
 import "@/app/_styles/globals.css";
 import { Quicksand } from "next/font/google";
-import Header from "./_components/Header";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
+import Header from "./_components/layout/Header";
 
 const quicksand = Quicksand({
   subsets: ["latin"],

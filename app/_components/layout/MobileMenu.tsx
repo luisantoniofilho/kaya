@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, useState } from "react";
-import { MobileLink } from "./MobileLink";
+import { MobileLink } from "../ui/MobileLink";
 import { MobileMenuButton } from "./MobileMenuButton";
 
 export default function MobileMenu({

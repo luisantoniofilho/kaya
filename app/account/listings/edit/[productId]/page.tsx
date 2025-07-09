@@ -1,4 +1,4 @@
-import AddOrEditProductForm from "@/app/_components/AddOrEditProductForm";
+import AddOrEditProductForm from "@/app/_components/forms/AddOrEditProductForm";
 import getUserSession from "@/app/_helpers/getUserSession";
 import { getProductAction, getUserAction } from "@/app/_lib/actions";
 

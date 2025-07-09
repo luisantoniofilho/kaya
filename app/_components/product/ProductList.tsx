@@ -1,5 +1,5 @@
-import { getProductsAction } from "../_lib/actions";
-import { ProductType } from "../schemas/productSchema";
+import { getProductsAction } from "../../_lib/actions";
+import { ProductType } from "../../schemas/productSchema";
 import ProductCard from "./ProductCard";
 
 export default async function ProductList({
