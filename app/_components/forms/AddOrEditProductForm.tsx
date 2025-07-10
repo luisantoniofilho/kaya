@@ -1,15 +1,15 @@
 "use client";
 
+import { redirect } from "next/navigation";
 import { useTransition } from "react";
 import toast from "react-hot-toast";
 import { addProductAction, updateProductAction } from "../../_lib/actions";
 import { PRODUCT_CATEGORIES } from "../../constants/productCategories";
+import { ProductType } from "../../schemas/productSchema";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import Select from "../ui/Select";
 import SpinnerMini from "../ui/SpinnerMini";
-import { ProductType } from "../../schemas/productSchema";
-import { redirect } from "next/navigation";
 
 export default function AddOrEditProductForm({
   product = null,
@@ -65,6 +65,7 @@ export default function AddOrEditProductForm({
         name="title"
         placeholder="Ex: Mesa de Escritório"
         defaultValue={product?.title || ""}
+        minLength={3}
       >
         Título
       </Input>
@@ -75,6 +76,7 @@ export default function AddOrEditProductForm({
         name="description"
         placeholder="Detalhes sobre o produto"
         defaultValue={product?.description || ""}
+        minLength={3}
       >
         Descrição
       </Input>
@@ -93,6 +95,7 @@ export default function AddOrEditProductForm({
         name="price"
         placeholder="Ex: 250"
         defaultValue={product?.price}
+        min={0}
       >
         Preço (R$)
       </Input>
