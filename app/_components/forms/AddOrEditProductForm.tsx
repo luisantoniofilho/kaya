@@ -3,7 +3,6 @@
 import { redirect } from "next/navigation";
 import { useTransition } from "react";
 import toast from "react-hot-toast";
-import { addProductAction, updateProductAction } from "../../_lib/actions";
 import { PRODUCT_CATEGORIES } from "../../constants/productCategories";
 import { ProductType } from "../../schemas/productSchema";
 import Button from "../ui/Button";
@@ -12,17 +11,19 @@ import Select from "../ui/Select";
 import SpinnerMini from "../ui/SpinnerMini";
 
 export default function AddOrEditProductForm({
+  onSubmit,
   product = null,
 }: {
+  onSubmit: (
+    formData: FormData,
+  ) => Promise<{ data: boolean | null; error?: string }>;
   product?: ProductType | null;
 }) {
   const [isPending, startTransition] = useTransition();
 
   function handleSubmit(formData: FormData) {
     startTransition(async () => {
-      const { error } = product
-        ? await updateProductAction(formData)
-        : await addProductAction(formData);
+      const { error } = await onSubmit(formData);
 
       // String error
 
