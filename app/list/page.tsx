@@ -1,5 +1,6 @@
 import AddOrEditProductForm from "../_components/forms/AddOrEditProductForm";
 import getUserSession from "../_helpers/getUserSession";
+import { addProductAction } from "../_lib/actions";
 
 export const metadata = {
   title: "Anunciar Produto",
@@ -17,7 +18,7 @@ export default async function Page() {
       </h1>
 
       {/* Product form component */}
-      <AddOrEditProductForm />
+      <AddOrEditProductForm onSubmit={addProductAction} />
     </main>
   );
 }

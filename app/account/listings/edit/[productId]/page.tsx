@@ -1,6 +1,10 @@
 import AddOrEditProductForm from "@/app/_components/forms/AddOrEditProductForm";
 import getUserSession from "@/app/_helpers/getUserSession";
-import { getProductAction, getUserAction } from "@/app/_lib/actions";
+import {
+  getProductAction,
+  getUserAction,
+  updateProductAction,
+} from "@/app/_lib/actions";
 
 export default async function Page({
   params,
@@ -72,7 +76,10 @@ export default async function Page({
           Editar Produto
         </h1>
 
-        <AddOrEditProductForm product={product} />
+        <AddOrEditProductForm
+          onSubmit={updateProductAction}
+          product={product}
+        />
       </article>
     </main>
   );
