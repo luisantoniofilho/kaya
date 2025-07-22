@@ -6,7 +6,10 @@ export default function ProductCard({ product }: { product: ProductType }) {
   if (!product.imageUrl) throw new Error("Imagem sem URL");
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-lg transition hover:shadow-md">
+    <article
+      className="flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-lg transition hover:shadow-md"
+      data-test={`product-card-${product.id}`}
+    >
       {/* product image */}
       <Image
         src={product.imageUrl}
