@@ -28,6 +28,7 @@ export default function SearchBar({
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Buscar produtos..."
         className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500"
+        data-test="search-input"
       />
       <button type="submit" className="absolute top-2.5 right-3 cursor-pointer">
         <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
