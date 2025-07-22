@@ -30,7 +30,12 @@ export default function ProductCard({ product }: { product: ProductType }) {
         <p className="mt-1 text-stone-600">{product.category}</p>
         <p className="mt-1 text-stone-600">{product.description}</p>
 
-        <LinkButton href={`/products/${product.id}`}>Ver detalhes</LinkButton>
+        <LinkButton
+          href={`/products/${product.id}`}
+          dataTest={`view-details-button-${product.id}`}
+        >
+          Ver detalhes
+        </LinkButton>
       </div>
     </article>
   );
