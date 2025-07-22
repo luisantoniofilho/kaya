@@ -38,10 +38,12 @@ export default async function ProductList({
   }
 
   return (
-    <>
-      {displayedProducts.map((product: ProductType) => (
-        <ProductCard key={product.id} product={product} />
+    <ul className="m-0 grid list-none grid-cols-1 gap-6 p-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {displayedProducts.map((product) => (
+        <li key={product.id}>
+          <ProductCard product={product} />
+        </li>
       ))}
-    </>
+    </ul>
   );
 }

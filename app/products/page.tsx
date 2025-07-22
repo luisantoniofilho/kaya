@@ -26,10 +26,7 @@ export default async function Page({
       <SearchBar defaultQuery={q} />
 
       {/* Product list */}
-      <section
-        aria-labelledby="products-title"
-        className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-      >
+      <section aria-labelledby="products-title">
         <ProductList query={q} />
       </section>
     </main>
