@@ -6,7 +6,7 @@ describe("test view products flow", () => {
 
     cy.get("[data-test='search-button']").click();
 
-    cy.get("[data-test='product-card-7']").should("be.visible").as("product");
+    cy.get("[data-test='product-card-7']").as("product");
 
     cy.get("@product").should("be.visible");
 
