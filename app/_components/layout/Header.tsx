@@ -17,6 +17,7 @@ export function Header() {
       <Link
         href="/"
         className="text-primary-900 text-2xl transition-all duration-300 hover:text-cyan-500 lg:text-3xl"
+        data-test="link-home"
       >
         Kaya
       </Link>
