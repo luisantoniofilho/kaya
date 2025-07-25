@@ -1,4 +1,4 @@
-import Top3Products from "./_components/product/Top3Products";
+import ProductList from "./_components/product/ProductList";
 
 export const metadata = {
   title: "Página Inicial",
@@ -22,7 +22,7 @@ function Page() {
         <h2 className="mb-6 text-2xl font-semibold text-gray-700">
           Produtos em Destaque
         </h2>
-        <Top3Products />
+        <ProductList limit={3} />
       </section>
     </main>
   );
