@@ -15,7 +15,7 @@ export function MobileLink({ href, children, onClick }: MobileLinkProps) {
       href={href}
       className={linkClass}
       onClick={onClick}
-      data-test={`link-${href.replace("/", "")}`}
+      data-test={`link-${href.replace("/", "")}-mobile`}
     >
       {children}
     </Link>
