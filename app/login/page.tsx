@@ -36,7 +36,7 @@ export default async function Page() {
 
         {/* Instruction text */}
         <p className="mb-6 text-center text-base text-gray-600 md:text-lg">
-          {session ? "Deseja sair da sua conta?" : "Login ou criar uma conta"}
+          {session ? "Deseja sair da sua conta?" : "Login ou criar conta"}
         </p>
 
         {/* Sign-in or Sign-out button */}
