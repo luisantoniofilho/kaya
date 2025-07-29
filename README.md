@@ -1,5 +1,7 @@
 # 🛒 Kaya - Circular E-commerce Platform
 
+🔗 **Test it live:** [kayaoficial.vercel.app](https://kayaoficial.vercel.app)
+
 **Kaya** is a modern e-commerce platform focused on the **circular economy**, enabling users to donate or sell secondhand products through a clean and accessible interface.
 
 Built with **Next.js App Router**, **PostgreSQL**, and **Google OAuth**, Kaya simplifies login while fostering sustainability and conscious consumption.
@@ -17,13 +19,24 @@ Built with **Next.js App Router**, **PostgreSQL**, and **Google OAuth**, Kaya si
 
 ---
 
-## 📌 Roadmap
+## 🧪 Tests
 
-- [ ] Prevent form fields from clearing after validation error
-- [ ] Improve client-side and server-side validation
-- [ ] Display user sales in dashboard
-- [ ] Support business (CNPJ) logic for sellers _(not separate login)_
-- [ ] Add unit and integration tests
+Kaya includes multiple layers of automated testing to ensure code quality and reliability:
+
+### ✅ Unit Tests
+
+- Test isolated logic such as components and utility functions.
+- Written with **Vitest + React Testing Library**.
+
+### 🔄 Integration Tests
+
+- Validate interactions between components (e.g., forms and their submission logic).
+- Built with **Vitest + React Testing Library**.
+
+### 🧭 End-to-End (E2E) Tests
+
+- Simulate real user behavior in the browser.
+- Implemented using **Cypress** to test public routes, protected routes, view products flow...
 
 ---
 
