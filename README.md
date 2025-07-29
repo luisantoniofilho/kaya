@@ -67,3 +67,33 @@ Kaya includes multiple layers of automated testing to ensure code quality and re
 git clone https://github.com/luisantoniofilho/kaya.git
 cd kaya
 ```
+
+### 2. Install dependencies
+
+npm install
+
+### 3. Configure environment variables
+
+Create a .env.local file in the root directory and add:
+
+# NEXTAUTH
+
+NEXTAUTH_URL=
+AUTH_SECRET=
+
+# GOOGLE
+
+AUTH_GOOGLE_ID=
+AUTH_GOOGLE_SECRET=
+
+# NEON DB
+
+NEONDB_URL=
+
+# VERCEL BLOB
+
+BLOB_READ_WRITE_TOKEN=
+
+### 4. Run the development server
+
+npm run dev
