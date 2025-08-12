@@ -21,7 +21,7 @@ Desenvolvido com **Next.js (App Router)**, **TypeScript**, **PostgreSQL**, **Tai
 
 ## 🧪 Testes
 
-O Kaya inclui múltiplas camadas de testes automatizados para garantir a qualidade e a confiabilidade do código:
+O Kaya inclui múltiplas camadas de testes para garantir a qualidade e a confiabilidade do código:
 
 ### ✅ Testes Unitários
 
