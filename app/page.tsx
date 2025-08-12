@@ -1,4 +1,5 @@
 import ProductList from "./_components/product/ProductList";
+import LinkButton from "./_components/ui/LinkButton";
 
 export const metadata = {
   title: "Página Inicial",
@@ -22,7 +23,11 @@ function Page() {
         <h2 className="mb-6 text-2xl font-semibold text-gray-700">
           Produtos em Destaque
         </h2>
-        <ProductList limit={3} />
+        <ProductList limit={4} />
+      </section>
+
+      <section className="mt-8 text-center">
+        <LinkButton href="/products">Ver todos os produtos &rarr;</LinkButton>
       </section>
     </main>
   );
