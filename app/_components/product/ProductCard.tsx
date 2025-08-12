@@ -7,7 +7,7 @@ export default function ProductCard({ product }: { product: ProductType }) {
 
   return (
     <article
-      className="flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-lg transition hover:shadow-md"
+      className="flex max-h-[400px] flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-lg transition hover:shadow-md"
       data-test={`product-card-${product.id}`}
     >
       {/* product image */}
@@ -28,7 +28,9 @@ export default function ProductCard({ product }: { product: ProductType }) {
           {product.price > 0 ? `R$${product.price}` : "Doação"}
         </p>
         <p className="mt-1 text-stone-600">{product.category}</p>
-        <p className="mt-1 text-stone-600">{product.description}</p>
+        <p className="mt-1 text-stone-600">
+          {product.description.slice(0, 20)}...
+        </p>
 
         <LinkButton
           href={`/products/${product.id}`}
