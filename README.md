@@ -1,46 +1,46 @@
-# 🛒 Kaya - Circular E-commerce Platform
+# 🛒 Kaya - Plataforma de E-commerce Circular
 
-🔗 **Test it live:** [kayaoficial.vercel.app](https://kayaoficial.vercel.app)
+🔗 **Teste ao vivo:** [kayaoficial.vercel.app](https://kayaoficial.vercel.app)
 
-**Kaya** is a modern e-commerce platform focused on the **circular economy**, enabling users to donate or sell secondhand products through a clean and accessible interface.
+**Kaya** é uma plataforma de e-commerce moderna focada na **economia circular**, permitindo que usuários doem ou vendam produtos de segunda mão através de uma interface limpa e acessível.
 
-Built with **Next.js App Router**, **PostgreSQL**, and **Google OAuth**, Kaya simplifies login while fostering sustainability and conscious consumption.
-
----
-
-## 🚀 Features
-
-- 🔐 Authentication via **Google OAuth** (NextAuth.js)
-- 🛍️ Product listing and detail view
-- 🔍 Search bar with dynamic filtering
-- 👤 User dashboard with personal listings
-- ⚙️ Semantic HTML and accessible design
-- ⚡ Responsive UI built with Tailwind CSS
+Desenvolvido com **Next.js (App Router)**, **PostgreSQL** e **Google OAuth**, o Kaya simplifica o login enquanto promove a sustentabilidade e o consumo consciente.
 
 ---
 
-## 🧪 Tests
+## 🚀 Funcionalidades
 
-Kaya includes multiple layers of automated testing to ensure code quality and reliability:
-
-### ✅ Unit Tests
-
-- Test isolated logic such as components and utility functions.
-- Written with **Vitest + React Testing Library**.
-
-### 🔄 Integration Tests
-
-- Validate interactions between components (e.g., forms and their submission logic).
-- Built with **Vitest + React Testing Library**.
-
-### 🧭 End-to-End (E2E) Tests
-
-- Simulate real user behavior in the browser.
-- Implemented using **Cypress** to test public routes, protected routes, view products flow...
+- 🔐 Autenticação via **Google OAuth** (NextAuth.js)
+- 🛍️ Listagem e visualização de detalhes de produtos
+- 🔍 Barra de pesquisa com filtragem dinâmica
+- 👤 Painel do usuário com seus próprios anúncios
+- ⚙️ HTML semântico e design acessível
+- ⚡ Interface de usuário responsiva construída com Tailwind CSS
 
 ---
 
-## 🧰 Tech Stack
+## 🧪 Testes
+
+O Kaya inclui múltiplas camadas de testes automatizados para garantir a qualidade e a confiabilidade do código:
+
+### ✅ Testes Unitários
+
+- Testam lógicas isoladas, como componentes e funções utilitárias.
+- Escritos com **Vitest + React Testing Library**.
+
+### 🔄 Testes de Integração
+
+- Validam a interação entre componentes (ex: formulários e a lógica de envio).
+- Desenvolvidos com **Vitest + React Testing Library**.
+
+### 🧭 Testes End-to-End (E2E)
+
+- Simulam o comportamento real do usuário no navegador.
+- Implementados com **Cypress** para testar rotas públicas, rotas protegidas, o fluxo de visualização de produtos, etc.
+
+---
+
+## 🧰 Tecnologias Utilizadas
 
 ### Frontend
 
@@ -53,28 +53,26 @@ Kaya includes multiple layers of automated testing to ensure code quality and re
 - [PostgreSQL](https://www.postgresql.org/)
 - [NextAuth.js](https://next-auth.js.org/)
 
-### Validation
+### Validação
 
 - [Zod](https://zod.dev/)
 
 ---
 
-## ⚙️ Getting Started
+## ⚙️ Como Começar
 
-### 1. Clone the repository
+### 1. Clone o repositório
 
-```bash
-git clone https://github.com/luisantoniofilho/kaya.git
+git clone [https://github.com/luisantoniofilho/kaya.git](https://github.com/luisantoniofilho/kaya.git)
 cd kaya
-```
 
-### 2. Install dependencies
+### 2. Instale as dependências
 
 npm install
 
-### 3. Configure environment variables
+### 3. Configure as variáveis de ambiente
 
-Create a .env.local file in the root directory and add:
+Crie um arquive .env.local no diretório raiz e adicione:
 
 # NEXTAUTH
 
@@ -94,6 +92,6 @@ NEONDB_URL=
 
 BLOB_READ_WRITE_TOKEN=
 
-### 4. Run the development server
+### 4. Rode o servidor de desenvolvimento
 
 npm run dev
