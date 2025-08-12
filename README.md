@@ -4,7 +4,7 @@
 
 **Kaya** é uma plataforma de e-commerce moderna focada na **economia circular**, permitindo que usuários doem ou vendam produtos de segunda mão através de uma interface limpa e acessível.
 
-Desenvolvido com **Next.js (App Router)**, **PostgreSQL** e **Google OAuth**, o Kaya simplifica o login enquanto promove a sustentabilidade e o consumo consciente.
+Desenvolvido com **Next.js (App Router)**, **TypeScript**, **PostgreSQL**, **TailwindCSS** e **Google OAuth**, o Kaya simplifica o login enquanto promove a sustentabilidade e o consumo consciente.
 
 ---
 
